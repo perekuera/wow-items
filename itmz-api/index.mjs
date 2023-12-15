@@ -1,5 +1,6 @@
 import express from "express";
 import mysql from "mysql2/promise";
+import itemsRouter from "./routes/items.mjs";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,8 +17,10 @@ const pool = mysql.createPool({
 
 app.use(express.json());
 
+app.use("/items", itemsRouter);
+
 app.get("/", async (req, res) => {
-  res.json("Hello world!");
+  res.json({ text: "Hello world!" });
 });
 
 app.listen(port, () => {
