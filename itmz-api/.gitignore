@@ -1,0 +1,47 @@
+# Node.js
+node_modules/
+
+# Editor
+.vscode/
+
+# Dependiendo de tu editor, puedes añadir otros archivos generados automáticamente
+# como .idea/ para IntelliJ IDEA o .project, .classpath para Eclipse
+
+# npm
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+.env
+
+# Logs
+logs
+*.log
+
+# Pruebas
+__tests__/
+test/
+
+# Output de pruebas
+coverage/
+
+# Directorios específicos de IDE
+.idea/
+*.iml
+*.iws
+
+# Archivos de configuración para Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos de sistema
+ehthumbs.db
+
+# Archivos de respaldo
+*~
+*.bak
+*.swp
