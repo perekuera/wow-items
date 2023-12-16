@@ -4,8 +4,7 @@ import { getItems } from "../dao/item.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const items = await getItems();
-  res.json(items);
+  res.json(await getItems(req.query));
 });
 
 export default router;

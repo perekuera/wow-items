@@ -14,8 +14,8 @@
 				"esbenp.prettier-vscode"
 			]
 		}
-	},
-	"runArgs": ["--network=azerothcore-wotlk_ac-network"],
+	}
+	//"runArgs": ["--network=azerothcore-wotlk_ac-network"]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

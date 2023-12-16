@@ -2,10 +2,11 @@ import mysql from "mysql2/promise";
 
 // Configuración de la conexión a la base de datos
 const pool = mysql.createPool({
-  host: "ac-database",
+  host: "localhost",
+  //host: "ac-database",
   user: "root",
   password: "password",
-  database: "acore_world",
+  database: "",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
