@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height"
-      >Home</v-responsive
+      >Items</v-responsive
     >
   </v-container>
 </template>

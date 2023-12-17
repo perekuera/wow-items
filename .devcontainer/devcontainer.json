@@ -6,10 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "Vue.volar"
-      ]
+      "extensions": ["esbenp.prettier-vscode", "Vue.volar"]
     }
   },
   "runArgs": ["--network=azerothcore-wotlk_ac-network"]
