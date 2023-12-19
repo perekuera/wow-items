@@ -4,13 +4,15 @@ import pool from "./database.js";
 
 const getAccountVerifier = async (userName) => {
   const query =
-    "SELECT salt, verifier FROM acore_auth.account WHERE username = ?";
+    "SELECT username, salt, verifier FROM acore_auth.account WHERE username = ?";
   const [result] = await pool.execute(query, [userName]);
-  const verifier = result[0].verifier;
-  const salt = result[0].salt;
-  console.log("db verifier is", verifier);
-  console.log("db salt is", salt);
-  calculateVerifier("username", "password", salt);
+  const { username, verifier, salt } = result[0];
+  return { username, verifier, salt };
+};
+
+const authAccount = async (userName, password) => {
+  //
+  calculateVerifier(username, "password", salt);
 };
 
 // Parameters
@@ -77,27 +79,8 @@ function calculateVerifier(username, password, salt) {
   return verifierBuffer;
 }
 
-/*function modPow(base, exponent, modulus) {
-  let result = BigInt(1);
-  while (exponent > 0) {
-    if (exponent % 2n === 1n) {
-      result = BigInt((result * base) % modulus);
-    }
-    base = (base * base) % modulus;
-    exponent = exponent / 2n;
-  }
-  return result;
-}*/
-
 // Example usage
 const username = "PEREKUERA";
-
 getAccountVerifier(username);
-
-// const password = "password";
-// const salt = crypto.randomBytes(32);
-
-// const verifier = calculateVerifier(username, password, salt);
-// console.log("Verifier:", verifier.toString("hex"));
 
 export { getAccountVerifier };
