@@ -10,7 +10,7 @@ const getAccountVerifier = async (userName) => {
   const salt = result[0].salt;
   console.log("db verifier is", verifier);
   console.log("db salt is", salt);
-  calculateVerifier("PEREKUERA", "Batuad3ll", salt);
+  calculateVerifier("username", "password", salt);
 };
 
 // Parameters
@@ -94,7 +94,7 @@ const username = "PEREKUERA";
 
 getAccountVerifier(username);
 
-// const password = "Batuad3ll ";
+// const password = "password";
 // const salt = crypto.randomBytes(32);
 
 // const verifier = calculateVerifier(username, password, salt);
