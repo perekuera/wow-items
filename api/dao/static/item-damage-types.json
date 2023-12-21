@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "damageType": "Physical"
+  },
+  {
+    "id": 1,
+    "damageType": "Holy"
+  },
+  {
+    "id": 2,
+    "damageType": "Fire"
+  },
+  {
+    "id": 3,
+    "damageType": "Nature"
+  },
+  {
+    "id": 4,
+    "damageType": "Frost"
+  },
+  {
+    "id": 5,
+    "damageType": "Shadow"
+  },
+  {
+    "id": 6,
+    "damageType": "Arcane"
+  }
+]

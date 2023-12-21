@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Human"
+  },
+  {
+    "id": 2,
+    "name": "Dwarf"
+  },
+  {
+    "id": 3,
+    "name": "Night Elf"
+  },
+  {
+    "id": 4,
+    "name": "Undead"
+  },
+  {
+    "id": 5,
+    "name": "Tauren"
+  },
+  {
+    "id": 6,
+    "name": "Gnome"
+  },
+  {
+    "id": 7,
+    "name": "Troll"
+  },
+  {
+    "id": 8,
+    "name": "Blood Elf"
+  },
+  {
+    "id": 10,
+    "name": "Draenei"
+  },
+  {
+    "id": 12,
+    "name": "Orc"
+  }
+]

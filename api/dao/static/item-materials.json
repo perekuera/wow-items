@@ -1,0 +1,42 @@
+[
+  {
+    "id": -1,
+    "material": "Consumables"
+  },
+  {
+    "id": 0,
+    "material": "Not Defined"
+  },
+  {
+    "id": 1,
+    "material": "Metal"
+  },
+  {
+    "id": 2,
+    "material": "Wood"
+  },
+  {
+    "id": 3,
+    "material": "Liquid"
+  },
+  {
+    "id": 4,
+    "material": "Jewelry"
+  },
+  {
+    "id": 5,
+    "material": "Chain"
+  },
+  {
+    "id": 6,
+    "material": "Plate"
+  },
+  {
+    "id": 7,
+    "material": "Cloth"
+  },
+  {
+    "id": 8,
+    "material": "Leather"
+  }
+]

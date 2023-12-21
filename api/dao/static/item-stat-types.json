@@ -1,0 +1,178 @@
+[
+  {
+    "id": 0,
+    "statType": "Mana"
+  },
+  {
+    "id": 1,
+    "statType": "Health"
+  },
+  {
+    "id": 3,
+    "statType": "Agility"
+  },
+  {
+    "id": 4,
+    "statType": "Strength"
+  },
+  {
+    "id": 5,
+    "statType": "Intellect"
+  },
+  {
+    "id": 6,
+    "statType": "Spirit"
+  },
+  {
+    "id": 7,
+    "statType": "Stamina"
+  },
+  {
+    "id": 12,
+    "statType": "Defense Skill Rating"
+  },
+  {
+    "id": 13,
+    "statType": "Dodge Rating"
+  },
+  {
+    "id": 14,
+    "statType": "Parry Rating"
+  },
+  {
+    "id": 15,
+    "statType": "Block Rating"
+  },
+  {
+    "id": 16,
+    "statType": "Melee Hit Rating"
+  },
+  {
+    "id": 17,
+    "statType": "Ranged Hit Rating"
+  },
+  {
+    "id": 18,
+    "statType": "Spell Hit Rating"
+  },
+  {
+    "id": 19,
+    "statType": "Melee Crit Rating"
+  },
+  {
+    "id": 20,
+    "statType": "Ranged Crit Rating"
+  },
+  {
+    "id": 21,
+    "statType": "Spell Crit Rating"
+  },
+  {
+    "id": 22,
+    "statType": "Melee Hit Taken Rating"
+  },
+  {
+    "id": 23,
+    "statType": "Ranged Hit Taken Rating"
+  },
+  {
+    "id": 24,
+    "statType": "Spell Hit Taken Rating"
+  },
+  {
+    "id": 25,
+    "statType": "Melee Crit Taken Rating"
+  },
+  {
+    "id": 26,
+    "statType": "Ranged Crit Taken Rating"
+  },
+  {
+    "id": 27,
+    "statType": "Spell Crit Taken Rating"
+  },
+  {
+    "id": 28,
+    "statType": "Melee Haste Rating"
+  },
+  {
+    "id": 29,
+    "statType": "Ranged Haste Rating"
+  },
+  {
+    "id": 30,
+    "statType": "Spèll Haste Rating"
+  },
+  {
+    "id": 31,
+    "statType": "Hit Rating"
+  },
+  {
+    "id": 32,
+    "statType": "Crit Rating"
+  },
+  {
+    "id": 33,
+    "statType": "Hit Taken Rating"
+  },
+  {
+    "id": 34,
+    "statType": "Crit Taken Rating"
+  },
+  {
+    "id": 35,
+    "statType": "Resilence Rating"
+  },
+  {
+    "id": 36,
+    "statType": "Haste Rating"
+  },
+  {
+    "id": 37,
+    "statType": "Expertise Rating"
+  },
+  {
+    "id": 38,
+    "statType": "Attack Power"
+  },
+  {
+    "id": 39,
+    "statType": "Ranged Attack Power"
+  },
+  {
+    "id": 40,
+    "statType": "Feral Attack Power"
+  },
+  {
+    "id": 41,
+    "statType": "Spell Healing Done"
+  },
+  {
+    "id": 42,
+    "statType": "Spell Damage Done"
+  },
+  {
+    "id": 43,
+    "statType": "Mana Regeneration"
+  },
+  {
+    "id": 44,
+    "statType": "Armor Penetration Rating"
+  },
+  {
+    "id": 45,
+    "statType": "Spell Power"
+  },
+  {
+    "id": 46,
+    "statType": "Health Regeneration"
+  },
+  {
+    "id": 47,
+    "statType": "Spell Penetration"
+  },
+  {
+    "id": 48,
+    "statType": "Block Value"
+  }
+]

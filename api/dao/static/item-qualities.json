@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "color": "Grey",
+    "name": "Poor"
+  },
+  {
+    "id": 1,
+    "color": "White",
+    "name": "Common"
+  },
+  {
+    "id": 2,
+    "color": "Green",
+    "name": "Uncommon"
+  },
+  {
+    "id": 3,
+    "color": "Blue",
+    "name": "Rare"
+  },
+  {
+    "id": 4,
+    "color": "Purple",
+    "name": "Epic"
+  },
+  {
+    "id": 5,
+    "color": "Orange",
+    "name": "Legendary"
+  },
+  {
+    "id": 6,
+    "color": "Red",
+    "name": "Artifact"
+  },
+  {
+    "id": 7,
+    "color": "Goldº",
+    "name": "Heirlooms (or some Bind to Account items)"
+  }
+]

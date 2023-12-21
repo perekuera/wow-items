@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "bondingType": "No bounds"
+  },
+  {
+    "id": 1,
+    "bondingType": "Binds when picked up"
+  },
+  {
+    "id": 2,
+    "bondingType": "Binds when equiped"
+  },
+  {
+    "id": 3,
+    "bondingType": "Binds when used"
+  },
+  {
+    "id": 4,
+    "bondingType": "Quest item"
+  },
+  {
+    "id": 5,
+    "bondingType": "Quest item 1"
+  }
+]
