@@ -1,4 +1,10 @@
+import path from "path";
+import { createRequire } from "module";
+import { URL } from "url";
 import pool from "./database.js";
+
+const require = createRequire(import.meta.url);
+const __dirname = new URL(".", import.meta.url).pathname;
 
 const CHECKED_QUERY = [
   "entry",
@@ -40,13 +46,12 @@ const getItems = async (params = {}) => {
       FROM      acore_world.item_template it 
       LEFT JOIN acore_world.item_template_locale itl ON (entry = id AND locale = '${locale}')
     `;
-    console.log("init params", params);
     params = Object.fromEntries(
       Object.entries(params).filter(
         ([key, _value]) => key && CHECKED_QUERY.includes(key.toLowerCase())
       )
     );
-    console.log("FINAL PARAMS", params);
+
     const conditions = Object.keys(params)
       .map((key) => {
         if ("name" === key.toLowerCase()) {
@@ -62,7 +67,6 @@ const getItems = async (params = {}) => {
     }
 
     query += " LIMIT 1";
-    console.log("query is", query);
     const [rows] = await pool.execute(query, Object.values(params));
     return rows;
   } catch (error) {
@@ -71,4 +75,11 @@ const getItems = async (params = {}) => {
   }
 };
 
-export { getItems };
+const getItemClasses = () => {
+  console.log("getitemclasses");
+  const data = require(path.join(__dirname, "static/item-classes.json"));
+  console.log("data", data);
+  return require(path.join(__dirname, "static/item-classes.json"));
+};
+
+export { getItems, getItemClasses };

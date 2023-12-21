@@ -1,0 +1,576 @@
+[
+  {
+    "id": 0,
+    "name": "Consumable",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Consumable"
+      },
+      {
+        "id": 1,
+        "name": "Potion"
+      },
+      {
+        "id": 2,
+        "name": "Elixir"
+      },
+      {
+        "id": 3,
+        "name": "Flask"
+      },
+      {
+        "id": 4,
+        "name": "Scroll"
+      },
+      {
+        "id": 5,
+        "name": "Food & Drink"
+      },
+      {
+        "id": 6,
+        "name": "Item Enhancement"
+      },
+      {
+        "id": 7,
+        "name": "Bandage"
+      },
+      {
+        "id": 8,
+        "name": "Other"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Container",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Bag"
+      },
+      {
+        "id": 1,
+        "name": "Soul Bag"
+      },
+      {
+        "id": 2,
+        "name": "Herb Bag"
+      },
+      {
+        "id": 3,
+        "name": "Enchanting Bag"
+      },
+      {
+        "id": 4,
+        "name": "Engineering Bag"
+      },
+      {
+        "id": 5,
+        "name": "Gem Bag"
+      },
+      {
+        "id": 6,
+        "name": "Minning Bag"
+      },
+      {
+        "id": 7,
+        "name": "Leatherworking Bag"
+      },
+      {
+        "id": 8,
+        "name": "Inscription Bag"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Weapon",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Axe One Handed"
+      },
+      {
+        "id": 1,
+        "name": "Axe Two Handed"
+      },
+      {
+        "id": 2,
+        "name": "Bow"
+      },
+      {
+        "id": 3,
+        "name": "Gun"
+      },
+      {
+        "id": 4,
+        "name": "Mace One Handed"
+      },
+      {
+        "id": 5,
+        "name": "Mace Two Handed"
+      },
+      {
+        "id": 6,
+        "name": "Polearm"
+      },
+      {
+        "id": 7,
+        "name": "Sword One Handed"
+      },
+      {
+        "id": 8,
+        "name": "Sword Two Handed"
+      },
+      {
+        "id": 9,
+        "name": "Obsolete"
+      },
+      {
+        "id": 10,
+        "name": "Staff"
+      },
+      {
+        "id": 11,
+        "name": "Exotic"
+      },
+      {
+        "id": 12,
+        "name": "Exotic"
+      },
+      {
+        "id": 13,
+        "name": "Fist Weapon"
+      },
+      {
+        "id": 14,
+        "name": "Miscellaneous (blacksmith hammer, minning pick, etc."
+      },
+      {
+        "id": 15,
+        "name": "Dagger"
+      },
+      {
+        "id": 16,
+        "name": "Thrown"
+      },
+      {
+        "id": 17,
+        "name": "Spear"
+      },
+      {
+        "id": 18,
+        "name": "Crossbow"
+      },
+      {
+        "id": 19,
+        "name": "Wand"
+      },
+      {
+        "id": 20,
+        "name": "Fishing Pole"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Gem",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Red"
+      },
+      {
+        "id": 1,
+        "name": "Blue"
+      },
+      {
+        "id": 2,
+        "name": "Yellow"
+      },
+      {
+        "id": 3,
+        "name": "Purple"
+      },
+      {
+        "id": 4,
+        "name": "Green"
+      },
+      {
+        "id": 5,
+        "name": "Orange"
+      },
+      {
+        "id": 6,
+        "name": "Meta"
+      },
+      {
+        "id": 7,
+        "name": "Simple"
+      },
+      {
+        "id": 8,
+        "name": "Prismatic"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Armor",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      {
+        "id": 1,
+        "name": "Cloth"
+      },
+      {
+        "id": 2,
+        "name": "Leather"
+      },
+      {
+        "id": 3,
+        "name": "Mail"
+      },
+      {
+        "id": 4,
+        "name": "Plate"
+      },
+      {
+        "id": 5,
+        "name": "Buckler (OBSOLETE)"
+      },
+      {
+        "id": 6,
+        "name": "Shield"
+      },
+      {
+        "id": 7,
+        "name": "Libram"
+      },
+      {
+        "id": 8,
+        "name": "Idol"
+      },
+      {
+        "id": 9,
+        "name": "Totem"
+      },
+      {
+        "id": 10,
+        "name": "Sigil"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Reagent",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Reagent"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Projectile",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Wand (OBSOLETE)"
+      },
+      {
+        "id": 1,
+        "name": "Bolt (OBSOLETE)"
+      },
+      {
+        "id": 2,
+        "name": "Arrow"
+      },
+      {
+        "id": 3,
+        "name": "Bullet"
+      },
+      {
+        "id": 4,
+        "name": "Thrown (OBSOLTE)"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Trade Goods",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Trade Goods"
+      },
+      {
+        "id": 1,
+        "name": "Parts"
+      },
+      {
+        "id": 2,
+        "name": "Explosives"
+      },
+      {
+        "id": 3,
+        "name": "Devices"
+      },
+      {
+        "id": 4,
+        "name": "Jewelcrafting"
+      },
+      {
+        "id": 5,
+        "name": "Cloth"
+      },
+      {
+        "id": 6,
+        "name": "Leather"
+      },
+      {
+        "id": 7,
+        "name": "Metal & Stone"
+      },
+      {
+        "id": 8,
+        "name": "Meat"
+      },
+      {
+        "id": 9,
+        "name": "Herb"
+      },
+      {
+        "id": 10,
+        "name": "Elemental"
+      },
+      {
+        "id": 11,
+        "name": "Other"
+      },
+      {
+        "id": 12,
+        "name": "Enchanting"
+      },
+      {
+        "id": 13,
+        "name": "Materials"
+      },
+      {
+        "id": 14,
+        "name": "Armor Enchantment"
+      },
+      {
+        "id": 15,
+        "name": "Weapon Enchantment"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Generic (OBSOLETE)",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Generic (OBSOLETE)"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Recipe",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Book"
+      },
+      {
+        "id": 1,
+        "name": "Leatherworking"
+      },
+      {
+        "id": 2,
+        "name": "Tailoring"
+      },
+      {
+        "id": 3,
+        "name": "Engineering"
+      },
+      {
+        "id": 4,
+        "name": "Blacksmithing"
+      },
+      {
+        "id": 5,
+        "name": "Cooking"
+      },
+      {
+        "id": 6,
+        "name": "Alchemy"
+      },
+      {
+        "id": 7,
+        "name": "First Aid"
+      },
+      {
+        "id": 8,
+        "name": "Enchanting"
+      },
+      {
+        "id": 9,
+        "name": "Fishing"
+      },
+      {
+        "id": 10,
+        "name": "Jewelcrafting"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Money (OBSOLETE)",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Money (OBSOLETE)"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Quiver",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Quiver (OBSOLETE)"
+      },
+      {
+        "id": 1,
+        "name": "Quiver (OBSOLETE)"
+      },
+      {
+        "id": 2,
+        "name": "Quiver (can hold arrows)"
+      },
+      {
+        "id": 3,
+        "name": "Ammo Poush (can hold bullets)"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Quest",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Quest"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Key",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Key"
+      },
+      {
+        "id": 1,
+        "name": "Lockpick"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Permanent (OBSOLETE)",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Permanent (OBSOLETE)"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Miscellaneous",
+    "subclasses": [
+      {
+        "id": 0,
+        "name": "Junk"
+      },
+      {
+        "id": 1,
+        "name": "Reagent"
+      },
+      {
+        "id": 2,
+        "name": "Pet"
+      },
+      {
+        "id": 3,
+        "name": "Holiday"
+      },
+      {
+        "id": 4,
+        "name": "Other"
+      },
+      {
+        "id": 5,
+        "name": "Mount"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Glyph",
+    "subclasses": [
+      {
+        "id": 1,
+        "name": "Warrior"
+      },
+      {
+        "id": 2,
+        "name": "Paladin"
+      },
+      {
+        "id": 3,
+        "name": "Hunter"
+      },
+      {
+        "id": 4,
+        "name": "Rogue"
+      },
+      {
+        "id": 5,
+        "name": "Priest"
+      },
+      {
+        "id": 6,
+        "name": "Death Knight"
+      },
+      {
+        "id": 7,
+        "name": "Shaman"
+      },
+      {
+        "id": 8,
+        "name": "Mage"
+      },
+      {
+        "id": 9,
+        "name": "Warlock"
+      },
+      {
+        "id": 11,
+        "name": "Druid"
+      }
+    ]
+  }
+]

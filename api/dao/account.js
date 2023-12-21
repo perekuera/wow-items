@@ -17,7 +17,7 @@ const authAccount = async (userName, password) => {
   if (!verifier.equals(userVerifier)) {
     throw new Error("Invalid User Name/Password");
   }
-  return jwt.sign({ userName }, TOKEN_KEY, { expiresIn: "15m" });
+  return getToken();
 };
 
 // Constant values
@@ -47,7 +47,14 @@ function calculateVerifier(username, password, salt) {
 const TOKEN_KEY =
   "eb1bce5451e30f890283a8cdf023c33ee62da26c30458642bf9a15e0e01d16ae";
 
-const checkToken = (req, _res, next) => {
+const TOKEN_DURATION = 60 * 20; // seconds
+const TOKEN_RENEW = 60 * 5; // seconds
+
+const getToken = (userName) => {
+  return jwt.sign({ userName }, TOKEN_KEY, { expiresIn: `${TOKEN_DURATION}s` });
+};
+
+const checkToken = (req, res, next) => {
   if (req.path === "/accounts/auth") {
     return next();
   }
@@ -60,10 +67,15 @@ const checkToken = (req, _res, next) => {
 
   try {
     token = token.replace("Bearer ", "");
-    jwt.verify(token, TOKEN_KEY);
+    const decoded = jwt.verify(token, TOKEN_KEY);
+    const exp = decoded.exp;
+    const now = parseInt(Date.now() / 1000);
+    const diff = exp - now;
+    if (diff < TOKEN_RENEW) {
+      res.header("Renew-Authorization", getToken(decoded.userName));
+    }
     next();
   } catch (error) {
-    console.log("error es", error);
     throw new Error("Authorization error: invalid token");
   }
 };
