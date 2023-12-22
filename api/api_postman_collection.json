@@ -1,0 +1,532 @@
+{
+  "info": {
+    "_postman_id": "d378641e-a2fa-4dcc-afbf-b30c9bcfad46",
+    "name": "WoW Items",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1506824"
+  },
+  "item": [
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"token\", pm.response.json().token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "userName",
+                  "value": "USERNAME",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "USERPASS",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3003/accounts/auth",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["accounts", "auth"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "Items",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Classes",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-classes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Bonding Types",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-bonding-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-bonding-types"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Damage Types",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-damage-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-damage-types"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Inventory Types",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-inventory-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-inventory-types"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Materials",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-materials",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-materials"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Qualities",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-qualities",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-qualities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item Stat Types",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/items/item-stat-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["items", "item-stat-types"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Characters",
+      "item": [
+        {
+          "name": "Character Classes",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/characters/character-classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["characters", "character-classes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Character Races",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let newToken = pm.response.headers.get(\"Renew-Authorization\");",
+                  "if (newToken) {",
+                  "    pm.environment.set(\"token\", newToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/characters/character-races",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["characters", "character-races"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
