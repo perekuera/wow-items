@@ -21,7 +21,7 @@ router.get("/item-classes", (_req, res) => {
 });
 
 router.get("/item-bonding-types", (_req, res) => {
-  res.json(getItemBondingTypes);
+  res.json(getItemBondingTypes());
 });
 
 router.get("/item-damage-types", (_req, res) => {
