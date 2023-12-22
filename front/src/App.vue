@@ -1,6 +1,6 @@
 <template>
   <v-layout class="rounded rounded-md">
-    <v-app-bar title="WoW Items" color="primary">
+    <v-app-bar v-if="appStore.logged" title="WoW Items" color="primary">
       <v-tabs>
         <v-tab to="/">Home</v-tab>
         <v-tab to="/items">Items</v-tab>
@@ -13,5 +13,10 @@
 </template>
 
 <script setup>
-//
+import { useAppStore } from "@/store/app.js";
+
+const appStore = useAppStore();
+
+console.log("store is", appStore);
+console.log(appStore.logged);
 </script>
