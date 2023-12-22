@@ -1,6 +1,7 @@
 import express from "express";
 import itemsRouter from "./routes/items.js";
 import accountsRouter from "./routes/accounts.js";
+import charactersRouter from "./routes/characters.js";
 import dotenv from "dotenv";
 import { checkToken } from "./dao/account.js";
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/items", itemsRouter);
 app.use("/accounts", accountsRouter);
+app.use("/characters", charactersRouter);
 
 app.use((err, req, res, _next) => {
   res

@@ -76,9 +76,6 @@ const getItems = async (params = {}) => {
 };
 
 const getItemClasses = () => {
-  console.log("getitemclasses");
-  const data = require(path.join(__dirname, "static/item-classes.json"));
-  console.log("data", data);
   return require(path.join(__dirname, "static/item-classes.json"));
 };
 
