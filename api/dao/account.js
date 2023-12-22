@@ -7,6 +7,9 @@ const getAccountVerifier = async (userName) => {
   const query =
     "SELECT username, salt, verifier FROM acore_auth.account WHERE username = ?";
   const [result] = await pool.execute(query, [userName]);
+  if (result.length === 0) {
+    throw new Error("User not found");
+  }
   const { username, verifier, salt } = result[0];
   return { username, verifier, salt };
 };

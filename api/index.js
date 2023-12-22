@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import itemsRouter from "./routes/items.js";
 import accountsRouter from "./routes/accounts.js";
 import charactersRouter from "./routes/characters.js";
@@ -10,6 +11,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3003;
 
+app.use(cors());
 app.use(checkToken);
 app.use(express.json());
 
