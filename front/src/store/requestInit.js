@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:3003";
 const getRequestInit = (
   init = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
   }
 ) => {
   const { token } = useAppStore();

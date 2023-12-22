@@ -9,13 +9,27 @@ export const useAppStore = defineStore("app", {
   }),
   mutations: {},
   actions: {
-    async auth() {
+    async auth(userName, password) {
       try {
-        const requestInit = getRequestInit();
-        console.log("requestInit", requestInit);
-        // await fetch(`${baseUrl}/auth`, getRequestInit());
+        const formData = new URLSearchParams();
+        formData.append("userName", userName);
+        formData.append("password", password);
+
+        const requestInit = getRequestInit({
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData,
+        });
+        console.log("request init", requestInit);
+
+        const res = await fetch(`${baseUrl}/accounts/auth`, requestInit);
+        if (!res.ok) {
+          return Promise.reject(await res.json());
+        }
+        return Promise.resolve(res.json());
       } catch (error) {
         console.error("Error>>>", error);
+        return Promise.reject(error);
       }
     },
   },
