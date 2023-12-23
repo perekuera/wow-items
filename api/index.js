@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
-import itemsRouter from "./routes/items.js";
 import accountsRouter from "./routes/accounts.js";
+import realmsRouter from "./routes/realms.js";
+import itemsRouter from "./routes/items.js";
 import charactersRouter from "./routes/characters.js";
 import dotenv from "dotenv";
 import { checkToken } from "./dao/account.js";
@@ -15,8 +16,9 @@ app.use(cors());
 app.use(checkToken);
 app.use(express.json());
 
-app.use("/items", itemsRouter);
 app.use("/accounts", accountsRouter);
+app.use("/realms", realmsRouter);
+app.use("/items", itemsRouter);
 app.use("/characters", charactersRouter);
 
 app.use((err, req, res, _next) => {

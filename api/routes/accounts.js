@@ -1,7 +1,20 @@
 import express from "express";
-import { authAccount } from "../dao/account.js";
+import {
+  getAccounts,
+  getAccountCharacters,
+  authAccount,
+} from "../dao/account.js";
 
 const router = express.Router();
+
+router.get("/", async (_req, res) => {
+  res.json(await getAccounts());
+});
+
+router.get("/:accountId/characters", async (req, res) => {
+  const { accountId } = req.params;
+  res.json(await getAccountCharacters(accountId));
+});
 
 router.post(
   "/auth",

@@ -3,6 +3,20 @@ import jwt from "jsonwebtoken";
 import { modPow } from "bigint-crypto-utils";
 import pool from "./database.js";
 
+const getAccounts = async () => {
+  const query =
+    "SELECT id, username, email, joindate, last_ip, locked, last_login, online, expansion, os, totaltime FROM acore_auth.account ORDER BY username";
+  const [rows] = await pool.execute(query);
+  return rows;
+};
+
+const getAccountCharacters = async (accountId) => {
+  const query =
+    "SELECT * FROM acore_characters.characters WHERE account = ? ORDER BY name";
+  const [rows] = await pool.execute(query, [accountId]);
+  return rows;
+};
+
 const getAccountVerifier = async (userName) => {
   const query =
     "SELECT username, salt, verifier FROM acore_auth.account WHERE username = ?";
@@ -83,4 +97,4 @@ const checkToken = (req, res, next) => {
   }
 };
 
-export { authAccount, checkToken };
+export { getAccounts, getAccountCharacters, authAccount, checkToken };

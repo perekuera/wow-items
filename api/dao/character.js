@@ -1,7 +1,6 @@
 import path from "path";
 import { createRequire } from "module";
 import { URL } from "url";
-import pool from "./database.js";
 
 const require = createRequire(import.meta.url);
 const __dirname = new URL(".", import.meta.url).pathname;
