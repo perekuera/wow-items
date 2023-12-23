@@ -12,11 +12,16 @@
   </v-layout>
 </template>
 
+<style scoped>
+.background {
+  background-image: url("@/assets/wotlk_bg_2.jpg");
+  background-size: cover;
+  opacity: 0.2;
+}
+</style>
+
 <script setup>
 import { useAppStore } from "@/store/app.js";
 
 const appStore = useAppStore();
-
-console.log("store is", appStore);
-console.log(appStore.logged);
 </script>

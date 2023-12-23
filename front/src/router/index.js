@@ -19,6 +19,7 @@ const routes = [
     path: "/items",
     name: "items",
     component: () => import("@/views/Items.vue"),
+    meta: { requiresAuth: true },
   },
 ];
 
@@ -27,11 +28,14 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const { logged } = useAppStore();
   if (to.meta.requiresAuth && !logged) {
     next("/login");
   } else {
+    if (logged && to.path === "/login") {
+      next("/");
+    }
     next();
   }
 });

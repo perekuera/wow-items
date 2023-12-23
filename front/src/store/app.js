@@ -23,14 +23,27 @@ export const useAppStore = defineStore("app", {
         console.log("request init", requestInit);
 
         const res = await fetch(`${baseUrl}/accounts/auth`, requestInit);
+        const data = await res.json();
         if (!res.ok) {
-          return Promise.reject(await res.json());
+          return Promise.reject(data);
         }
-        return Promise.resolve(res.json());
+        this.token = data.token;
+        this.logged = true;
+        //router.push("/home");
+        return Promise.resolve(data);
       } catch (error) {
         console.error("Error>>>", error);
         return Promise.reject(error);
       }
     },
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: "wi-app",
+        storage: sessionStorage,
+      },
+    ],
   },
 });
