@@ -1,11 +1,22 @@
 <template>
   <v-container fluid fill-height>
-    <v-row justify="center" class="mt-5">
-      <v-col cols="12" sm="8" md="4">
-        <v-card width="280" class="align-center text-center">
-          <v-card-title class="mt-5">WoW Items</v-card-title>
-          <v-card-text class="mt-5" @keyup.enter="doLogin">
-            <v-row>
+    <v-row class="mt-16">
+      <v-col>
+        <v-card
+          width="400"
+          height="640"
+          class="mx-auto elevation-5"
+          image="@/assets/wotlk_bg_1.jpg"
+        >
+          <v-card-title class="mt-5 text-center text-h5" height="200"
+            >WoW Items</v-card-title
+          >
+          <v-card-text
+            style="margin-top: 320px"
+            @keyup.enter="doLogin"
+            class="transparent-bg"
+          >
+            <v-row class="pt-3">
               <v-col>
                 <v-text-field
                   v-model="userName"
@@ -30,8 +41,7 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions class="mb-5 px-4">
-            <v-spacer></v-spacer>
+          <v-card-actions class="px-4 pb-4 transparent-bg">
             <v-btn
               block
               variant="tonal"
@@ -40,13 +50,18 @@
             >
               Login</v-btn
             >
-            <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.transparent-bg {
+  background: rgba(0, 0, 0, 0.5);
+}
+</style>
 
 <script setup>
 import { ref } from "vue";
