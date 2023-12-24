@@ -1,21 +1,17 @@
 <template>
   <v-container fluid fill-height>
-    <v-row class="mt-16">
+    <v-row class="mt-10">
       <v-col>
         <v-card
-          width="400"
-          height="640"
+          width="350"
+          height="540"
           class="mx-auto elevation-5"
           image="@/assets/wotlk_bg_1.jpg"
         >
           <v-card-title class="mt-5 text-center text-h5" height="200"
             >WoW Items</v-card-title
           >
-          <v-card-text
-            style="margin-top: 320px"
-            @keyup.enter="doLogin"
-            class="transparent-bg"
-          >
+          <v-card-text style="margin-top: 220px" @keyup.enter="doLogin">
             <v-row class="pt-3">
               <v-col>
                 <v-text-field
@@ -41,7 +37,7 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions class="px-4 pb-4 transparent-bg">
+          <v-card-actions class="px-4 pb-4">
             <v-btn
               block
               variant="tonal"
@@ -57,15 +53,9 @@
   </v-container>
 </template>
 
-<style scoped>
-.transparent-bg {
-  background: rgba(0, 0, 0, 0.5);
-}
-</style>
-
 <script setup>
 import { ref } from "vue";
-import router from "@/router/index";
+//import router from "@/router/index";
 import { useAppStore } from "@/store/app.js";
 
 const appStore = useAppStore();
@@ -77,7 +67,7 @@ const password = ref("");
 const doLogin = () => {
   auth(userName.value, password.value)
     .then((_res) => {
-      router.push("/home");
+      //router.push("/home");
     })
     .catch((error) => {
       console.log("error", error);

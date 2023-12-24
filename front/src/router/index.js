@@ -10,6 +10,10 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/home",
+    redirect: "/",
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("@/views/Login.vue"),
@@ -20,6 +24,12 @@ const routes = [
     name: "items",
     component: () => import("@/views/Items.vue"),
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "error",
+    component: () => import("@/views/Error.vue"),
+    meta: { requiresAuth: false },
   },
 ];
 
