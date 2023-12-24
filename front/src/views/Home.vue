@@ -6,4 +6,16 @@
   </v-container>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRealmStore } from "@/store/realms";
+
+const { getRealms } = useRealmStore();
+
+getRealms()
+  .then(() => {
+    console.log("done");
+  })
+  .catch((error) => {
+    console.log("error...", error);
+  });
+</script>

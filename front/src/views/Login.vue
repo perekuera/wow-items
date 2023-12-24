@@ -41,10 +41,11 @@
             <v-btn
               block
               variant="tonal"
-              prepend-icon="mdi-plus"
+              prepend-icon="mdi-login"
               @click="doLogin"
+              :loading="appStore.loading"
             >
-              Login</v-btn
+              Sign in</v-btn
             >
           </v-card-actions>
         </v-card>

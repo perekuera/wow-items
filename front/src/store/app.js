@@ -4,13 +4,14 @@ import { baseUrl, getRequestInit } from "./requestInit.js";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
+    loading: false,
     logged: false,
     token: null,
   }),
-  mutations: {},
   actions: {
     async auth(userName, password) {
       try {
+        this.loading = true;
         const formData = new URLSearchParams();
         formData.append("userName", userName);
         formData.append("password", password);
@@ -20,7 +21,6 @@ export const useAppStore = defineStore("app", {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: formData,
         });
-        console.log("request init", requestInit);
 
         const res = await fetch(`${baseUrl}/accounts/auth`, requestInit);
         const data = await res.json();
@@ -34,6 +34,8 @@ export const useAppStore = defineStore("app", {
       } catch (error) {
         console.error("Error>>>", error);
         return Promise.reject(error);
+      } finally {
+        this.loading = false;
       }
     },
     logout() {
