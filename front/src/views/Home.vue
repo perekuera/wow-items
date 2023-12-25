@@ -4,14 +4,32 @@
       <v-card-text>
         <v-data-table
           density="comfortable"
-          :headers="headers"
+          :headers="realmHeaders"
           :items="realms"
-          :loading="loading"
+          :loading="realmLoading"
         >
           <template v-slot:bottom></template>
         </v-data-table>
       </v-card-text>
-      <v-card-text> {{ realms }} </v-card-text>
+    </v-card>
+    <v-card variant="text" title="Accounts">
+      <v-card-text>
+        <v-data-table
+          density="comfortable"
+          :headers="accountHeaders"
+          :items="accounts"
+          :loading="accountLoading"
+        >
+          <template v-slot:item.joindate="{ value }">
+            {{ new Intl.DateTimeFormat().format(new Date(value)) }}
+          </template>
+          <template v-slot:item.last_login="{ value }">
+            {{ new Intl.DateTimeFormat().format(new Date(value)) }}
+          </template>
+          <template v-slot:bottom></template>
+        </v-data-table>
+      </v-card-text>
+      <v-card-text> {{ accounts }} </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -19,10 +37,16 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRealmStore } from "@/store/realms";
+import { useAccountStore } from "@/store/accounts";
 
 const realmStore = useRealmStore();
 const { getRealms, getRealmCharacters } = realmStore;
-const { loading, realms } = storeToRefs(realmStore);
+const { realmLoading, realms } = storeToRefs(realmStore);
+
+const accountStore = useAccountStore();
+const { getAccounts, getAccountCharacters } = accountStore;
+const { accountLoading, accounts, accountCharacters } =
+  storeToRefs(accountStore);
 
 getRealms()
   .then((realms) => {
@@ -39,7 +63,19 @@ getRealms()
     console.log("error...", error);
   });
 
-const headers = [
+console.log("nav lagn", navigator.languages);
+
+getAccounts(1)
+  .then((accounts) => {
+    console.log("accounts", accounts);
+  })
+  .catch((error) => console.error("error", error));
+
+const realmHeaders = [
+  {
+    title: "Id",
+    value: "id",
+  },
   {
     title: "Name",
     value: "name",
@@ -67,6 +103,41 @@ const headers = [
     title: "Characters",
     value: "characters",
     align: "center",
+  },
+];
+
+const accountHeaders = [
+  {
+    title: "Id",
+    value: "id",
+  },
+  {
+    title: "User name",
+    value: "username",
+  },
+  {
+    title: "Join date",
+    value: "joindate",
+  },
+  {
+    title: "Last IP",
+    value: "last_ip",
+  },
+  {
+    title: "Locked",
+    value: "locked",
+  },
+  {
+    title: "Last login",
+    value: "last_login",
+  },
+  {
+    title: "Online",
+    value: "online",
+  },
+  {
+    title: "Total time",
+    value: "totaltime",
   },
 ];
 </script>

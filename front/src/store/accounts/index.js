@@ -1,51 +1,46 @@
 import { defineStore } from "pinia";
 import { baseUrl, getRequestInit } from "../requestInit.js";
 
-export const useRealmStore = defineStore("realmStore", {
+export const useAccountStore = defineStore("accountStore", {
   state: () => ({
-    realmLoading: false,
-    realms: [],
-    realmCharacters: [],
+    accountLoading: false,
+    accounts: [],
+    accountCharacters: [],
   }),
   actions: {
-    async getRealms() {
+    async getAccounts() {
       try {
-        this.realmLoading = true;
-        const res = await fetch(`${baseUrl}/realms`, getRequestInit());
+        this.accountLoading = true;
+        const res = await fetch(`${baseUrl}/accounts`, getRequestInit());
         let data = await res.json();
         if (!res.ok) {
           throw new Error(data);
         }
-        data = data.map((item) => {
-          return { ...item, characters: 0 };
-        });
-        this.realms = data;
+        this.accounts = data;
         return Promise.resolve(data);
       } catch (error) {
         return Promise.reject(error);
       } finally {
-        this.realmLoading = false;
+        this.accountLoading = false;
       }
     },
-    async getRealmCharacters(realmId) {
+    async getAccountCharacters(accountId) {
       try {
-        this.realmLoading = true;
+        this.accountLoading = true;
         const res = await fetch(
-          `${baseUrl}/realms/${realmId}/characters`,
+          `${baseUrl}/accounts/${accountId}/characters`,
           getRequestInit()
         );
         const data = await res.json();
         if (!res.ok) {
           throw new Error(data);
         }
-        this.realms.find((realm) => realm.id === realmId).characters =
-          data.reduce((acu, account) => acu + account.numchars, 0);
-        this.realmCharacters = data;
+        this.accountCharacters = data;
         return Promise.resolve(data);
       } catch (error) {
         return Promise.reject(error);
       } finally {
-        this.realmLoading = false;
+        this.accountLoading = false;
       }
     },
   },
