@@ -5,18 +5,42 @@ export const useRealmStore = defineStore("realmStore", {
   state: () => ({
     loading: false,
     realms: [],
+    realmCharacters: [],
   }),
   actions: {
     async getRealms() {
       try {
         this.loading = true;
         const res = await fetch(`${baseUrl}/realms`, getRequestInit());
+        let data = await res.json();
+        if (!res.ok) {
+          throw new Error(data);
+        }
+        data = data.map((item) => {
+          return { ...item, characters: 0 };
+        });
+        this.realms = data;
+        return Promise.resolve(data);
+      } catch (error) {
+        return Promise.reject(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getRealmCharacters(realmId) {
+      try {
+        this.loading = true;
+        const res = await fetch(
+          `${baseUrl}/realms/${realmId}/characters`,
+          getRequestInit()
+        );
         const data = await res.json();
         if (!res.ok) {
-          return Promise.reject(data);
+          throw new Error(data);
         }
-        console.log("data", data);
-        this.realms = data;
+        this.realms.find((realm) => realm.id === realmId).characters =
+          data.reduce((acu, account) => acu + account.numchars, 0);
+        this.realmCharacters = data;
         return Promise.resolve(data);
       } catch (error) {
         return Promise.reject(error);
