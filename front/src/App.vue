@@ -3,7 +3,7 @@
     <v-app-bar
       v-if="appStore.logged"
       :title="getTitle()"
-      density="compact"
+      density="comfortable"
       image="@/assets/wotlk_bg_2.jpg"
     >
       <template v-slot:image>
@@ -18,7 +18,7 @@
       <v-btn icon="mdi-logout" @click="logout"></v-btn>
     </v-app-bar>
     <v-main>
-      <router-view />
+      <router-view class="mt-4" />
     </v-main>
   </v-layout>
 </template>
