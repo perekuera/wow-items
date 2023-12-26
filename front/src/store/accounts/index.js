@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import { baseUrl, getRequestInit } from "../requestInit.js";
+import { useAppStore } from "../app.js";
+
+const appStore = useAppStore();
 
 export const useAccountStore = defineStore("accountStore", {
   state: () => ({
@@ -27,6 +30,7 @@ export const useAccountStore = defineStore("accountStore", {
     async getAccountCharacters(accountId) {
       try {
         this.accountLoading = true;
+        accountId = accountId || appStore.accountId;
         const res = await fetch(
           `${baseUrl}/accounts/${accountId}/characters`,
           getRequestInit()

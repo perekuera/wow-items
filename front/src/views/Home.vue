@@ -29,7 +29,19 @@
           <template v-slot:bottom></template>
         </v-data-table>
       </v-card-text>
-      <v-card-text> {{ accounts }} </v-card-text>
+    </v-card>
+    <v-card variant="text" title="My Characters">
+      <v-card-text>
+        <v-data-table
+          density="comfortable"
+          :headers="accountCharacterHeaders"
+          :items="accountCharacters"
+          :loading="accountLoading"
+        >
+          <template v-slot:bottom></template>
+        </v-data-table>
+      </v-card-text>
+      <v-card-text>{{ accountCharacters }}</v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -65,11 +77,17 @@ getRealms()
 
 console.log("nav lagn", navigator.languages);
 
-getAccounts(1)
+getAccounts()
   .then((accounts) => {
     console.log("accounts", accounts);
   })
   .catch((error) => console.error("error", error));
+
+getAccountCharacters()
+  .then((accountCharacters) => {
+    console.log("characters", accountCharacters);
+  })
+  .catch((error) => console.error(error));
 
 const realmHeaders = [
   {
@@ -138,6 +156,17 @@ const accountHeaders = [
   {
     title: "Total time",
     value: "totaltime",
+  },
+];
+
+const accountCharacterHeaders = [
+  {
+    title: "Guid",
+    value: "guid",
+  },
+  {
+    title: "Name",
+    value: "name",
   },
 ];
 </script>

@@ -7,6 +7,8 @@ export const useAppStore = defineStore("app", {
     loading: false,
     logged: false,
     token: null,
+    userName: null,
+    accountId: null,
   }),
   actions: {
     async auth(userName, password) {
@@ -28,11 +30,12 @@ export const useAppStore = defineStore("app", {
           return Promise.reject(data);
         }
         this.token = data.token;
+        this.userName = data.userName;
+        this.accountId = data.accountId;
         this.logged = true;
         router.push("/home");
         return Promise.resolve(data);
       } catch (error) {
-        console.error("Error>>>", error);
         return Promise.reject(error);
       } finally {
         this.loading = false;
