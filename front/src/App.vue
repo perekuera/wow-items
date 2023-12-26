@@ -2,7 +2,7 @@
   <v-layout class="rounded rounded-md">
     <v-app-bar
       v-if="appStore.logged"
-      :title="getTitle()"
+      title="WoW Items"
       density="comfortable"
       image="@/assets/wotlk_bg_2.jpg"
     >
@@ -34,8 +34,4 @@ import { useAppStore } from "@/store/app.js";
 
 const appStore = useAppStore();
 const { logout } = appStore;
-
-const getTitle = () => {
-  return "WoW Items";
-};
 </script>

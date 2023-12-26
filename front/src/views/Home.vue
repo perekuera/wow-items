@@ -38,10 +38,15 @@
           :items="accountCharacters"
           :loading="accountLoading"
         >
+          <template v-slot:item.race="{ value }">
+            {{ raceName(value) }}
+          </template>
+          <template v-slot:item.class="{ value }">
+            {{ className(value) }}
+          </template>
           <template v-slot:bottom></template>
         </v-data-table>
       </v-card-text>
-      <v-card-text>{{ accountCharacters }}</v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -50,6 +55,7 @@
 import { storeToRefs } from "pinia";
 import { useRealmStore } from "@/store/realms";
 import { useAccountStore } from "@/store/accounts";
+import { useCharacterStore } from "@/store/characters";
 
 const realmStore = useRealmStore();
 const { getRealms, getRealmCharacters } = realmStore;
@@ -60,34 +66,24 @@ const { getAccounts, getAccountCharacters } = accountStore;
 const { accountLoading, accounts, accountCharacters } =
   storeToRefs(accountStore);
 
+const characterStore = useCharacterStore();
+const { getClasses, getRaces } = useCharacterStore();
+const { className, raceName } = storeToRefs(characterStore);
+
+getClasses().catch((error) => console.error(error));
+getRaces().catch((error) => console.error(error));
+
 getRealms()
   .then((realms) => {
     realms.forEach((realm) => {
-      //console.log("realm id ", realm.id);
-      getRealmCharacters(realm.id).then((realmCharacters) => {
-        /*realm.characters = realmCharacters.reduce(
-          (acu, account) => acu + account.numchars
-        );*/
-      });
+      getRealmCharacters(realm.id).catch((error) => console.error(error));
     });
   })
-  .catch((error) => {
-    console.log("error...", error);
-  });
-
-console.log("nav lagn", navigator.languages);
-
-getAccounts()
-  .then((accounts) => {
-    console.log("accounts", accounts);
-  })
-  .catch((error) => console.error("error", error));
-
-getAccountCharacters()
-  .then((accountCharacters) => {
-    console.log("characters", accountCharacters);
-  })
   .catch((error) => console.error(error));
+
+getAccounts().catch((error) => console.error(error));
+
+getAccountCharacters().catch((error) => console.error(error));
 
 const realmHeaders = [
   {
@@ -128,6 +124,7 @@ const accountHeaders = [
   {
     title: "Id",
     value: "id",
+    align: "center",
   },
   {
     title: "User name",
@@ -136,26 +133,32 @@ const accountHeaders = [
   {
     title: "Join date",
     value: "joindate",
+    align: "center",
   },
   {
     title: "Last IP",
     value: "last_ip",
+    align: "center",
   },
   {
     title: "Locked",
     value: "locked",
+    align: "center",
   },
   {
     title: "Last login",
     value: "last_login",
+    align: "center",
   },
   {
     title: "Online",
     value: "online",
+    align: "center",
   },
   {
     title: "Total time",
     value: "totaltime",
+    align: "end",
   },
 ];
 
@@ -163,10 +166,41 @@ const accountCharacterHeaders = [
   {
     title: "Guid",
     value: "guid",
+    align: "center",
   },
   {
     title: "Name",
     value: "name",
+  },
+  {
+    title: "Race",
+    value: "race",
+    align: "center",
+  },
+  {
+    title: "Class",
+    value: "class",
+    align: "center",
+  },
+  {
+    title: "Gender",
+    value: "gender",
+    align: "center",
+  },
+  {
+    title: "Level",
+    value: "level",
+    align: "center",
+  },
+  {
+    title: "Online",
+    value: "online",
+    align: "center",
+  },
+  {
+    title: "Total time",
+    value: "totaltime",
+    align: "end",
   },
 ];
 </script>

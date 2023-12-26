@@ -56,7 +56,6 @@
 
 <script setup>
 import { ref } from "vue";
-//import router from "@/router/index";
 import { useAppStore } from "@/store/app.js";
 
 const appStore = useAppStore();
@@ -66,12 +65,8 @@ const userName = ref("");
 const password = ref("");
 
 const doLogin = () => {
-  auth(userName.value, password.value)
-    .then((_res) => {
-      //router.push("/home");
-    })
-    .catch((error) => {
-      console.log("error", error);
-    });
+  auth(userName.value, password.value).catch((error) =>
+    console.error("error", error)
+  );
 };
 </script>

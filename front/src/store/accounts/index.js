@@ -15,7 +15,7 @@ export const useAccountStore = defineStore("accountStore", {
       try {
         this.accountLoading = true;
         const res = await fetch(`${baseUrl}/accounts`, getRequestInit());
-        let data = await res.json();
+        const data = await res.json();
         if (!res.ok) {
           throw new Error(data);
         }
