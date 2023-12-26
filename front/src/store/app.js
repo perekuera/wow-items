@@ -9,8 +9,25 @@ export const useAppStore = defineStore("app", {
     token: null,
     userName: null,
     accountId: null,
+    locales: [],
   }),
   actions: {
+    async getLocales() {
+      try {
+        this.loading = true;
+        const res = await fetch(`${baseUrl}/locales`, getRequestInit());
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data);
+        }
+        this.locales = data;
+        return Promise.resolve(data);
+      } catch (error) {
+        return Promise.reject(error);
+      } finally {
+        this.loading = false;
+      }
+    },
     async auth(userName, password) {
       try {
         this.loading = true;
@@ -27,7 +44,7 @@ export const useAppStore = defineStore("app", {
         const res = await fetch(`${baseUrl}/accounts/auth`, requestInit);
         const data = await res.json();
         if (!res.ok) {
-          return Promise.reject(data);
+          throw new Error(data);
         }
         this.token = data.token;
         this.userName = data.userName;

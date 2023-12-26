@@ -1,0 +1,47 @@
+[
+  {
+    "id": "enEN",
+    "iso": "en-EN",
+    "name": "English"
+  },
+  {
+    "id": "deDE",
+    "iso": "de-DE",
+    "name": "German"
+  },
+  {
+    "id": "esES",
+    "iso": "es-ES",
+    "name": "Spanish"
+  },
+  {
+    "id": "frFR",
+    "iso": "fr-FR",
+    "name": "French"
+  },
+  {
+    "id": "esMX",
+    "iso": "es-MX",
+    "name": "Mexican Spanish"
+  },
+  {
+    "id": "koKR",
+    "iso": "ko-KR",
+    "name": "South Korean"
+  },
+  {
+    "id": "zhCN",
+    "iso": "zh-CN",
+    "name": "Mainland Chinese"
+  },
+  {
+    "id": "zhTW",
+    "iso": "zh-TW",
+    "name": "Taiwanese"
+  },
+  {
+    "id": "ruRU",
+    "iso": "ru-RU",
+    "name": "Russian"
+  }
+]

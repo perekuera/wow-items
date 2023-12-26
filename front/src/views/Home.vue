@@ -1,53 +1,55 @@
 <template>
-  <v-container>
-    <v-card variant="text" title="Realms">
-      <v-card-text>
-        <v-data-table
-          density="comfortable"
-          :headers="realmHeaders"
-          :items="realms"
-          :loading="realmLoading"
-        >
-          <template v-slot:bottom></template>
-        </v-data-table>
-      </v-card-text>
-    </v-card>
-    <v-card variant="text" title="Accounts">
-      <v-card-text>
-        <v-data-table
-          density="comfortable"
-          :headers="accountHeaders"
-          :items="accounts"
-          :loading="accountLoading"
-        >
-          <template v-slot:item.joindate="{ value }">
-            {{ new Intl.DateTimeFormat().format(new Date(value)) }}
-          </template>
-          <template v-slot:item.last_login="{ value }">
-            {{ new Intl.DateTimeFormat().format(new Date(value)) }}
-          </template>
-          <template v-slot:bottom></template>
-        </v-data-table>
-      </v-card-text>
-    </v-card>
-    <v-card variant="text" title="My Characters">
-      <v-card-text>
-        <v-data-table
-          density="comfortable"
-          :headers="accountCharacterHeaders"
-          :items="accountCharacters"
-          :loading="accountLoading"
-        >
-          <template v-slot:item.race="{ value }">
-            {{ raceName(value) }}
-          </template>
-          <template v-slot:item.class="{ value }">
-            {{ className(value) }}
-          </template>
-          <template v-slot:bottom></template>
-        </v-data-table>
-      </v-card-text>
-    </v-card>
+  <v-container class="fill-height">
+    <v-responsive class="align-center fill-height">
+      <v-card density="compact" variant="text" title="Realms">
+        <v-card-text>
+          <v-data-table
+            density="comfortable"
+            :headers="realmHeaders"
+            :items="realms"
+            :loading="realmLoading"
+          >
+            <template v-slot:bottom></template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+      <v-card density="compact" variant="text" title="Accounts">
+        <v-card-text>
+          <v-data-table
+            density="comfortable"
+            :headers="accountHeaders"
+            :items="accounts"
+            :loading="accountLoading"
+          >
+            <template v-slot:item.joindate="{ value }">
+              {{ new Intl.DateTimeFormat().format(new Date(value)) }}
+            </template>
+            <template v-slot:item.last_login="{ value }">
+              {{ new Intl.DateTimeFormat().format(new Date(value)) }}
+            </template>
+            <template v-slot:bottom></template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+      <v-card density="compact" variant="text" title="My Characters">
+        <v-card-text>
+          <v-data-table
+            density="comfortable"
+            :headers="accountCharacterHeaders"
+            :items="accountCharacters"
+            :loading="accountLoading"
+          >
+            <template v-slot:item.race="{ value }">
+              {{ raceName(value) }}
+            </template>
+            <template v-slot:item.class="{ value }">
+              {{ className(value) }}
+            </template>
+            <template v-slot:bottom></template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+    </v-responsive>
   </v-container>
 </template>
 

@@ -1,11 +1,17 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { createRequire } from "module";
+import { URL } from "url";
 import accountsRouter from "./routes/accounts.js";
 import realmsRouter from "./routes/realms.js";
 import itemsRouter from "./routes/items.js";
 import charactersRouter from "./routes/characters.js";
 import dotenv from "dotenv";
 import { checkToken } from "./dao/account.js";
+
+const require = createRequire(import.meta.url);
+const __dirname = new URL(".", import.meta.url).pathname;
 
 dotenv.config();
 
@@ -25,6 +31,11 @@ app.use((err, req, res, _next) => {
   res
     .status(500)
     .json({ request: req.path, method: req.method, message: err.message });
+});
+
+app.get("/locales", (req, res) => {
+  const locales = require(path.join(__dirname, "dao/static/locales.json"));
+  res.json(locales);
 });
 
 app.listen(port, () => {

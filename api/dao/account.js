@@ -74,7 +74,7 @@ const getToken = (userName) => {
 };
 
 const checkToken = (req, res, next) => {
-  if (req.path === "/accounts/auth") {
+  if (req.path === "/accounts/auth" || req.path === "/locales") {
     return next();
   }
 

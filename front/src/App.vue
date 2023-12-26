@@ -15,10 +15,26 @@
         <v-tab to="/">Home</v-tab>
         <v-tab to="/items">Items</v-tab>
       </v-tabs>
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn prepend-icon="mdi-earth" v-bind="props">
+            {{ locale.split("-")[0] }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(locale, index) in locales"
+            :key="index"
+            :value="index"
+          >
+            <v-list-item-title>{{ locale.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-btn icon="mdi-logout" @click="logout"></v-btn>
     </v-app-bar>
     <v-main>
-      <router-view class="mt-4" />
+      <router-view />
     </v-main>
   </v-layout>
 </template>
@@ -30,8 +46,13 @@
 </style>
 
 <script setup>
+import { ref } from "vue";
 import { useAppStore } from "@/store/app.js";
 
 const appStore = useAppStore();
-const { logout } = appStore;
+const { logout, getLocales, locales } = appStore;
+
+const locale = ref("en-EN");
+
+getLocales().catch((error) => console.error(error));
 </script>
