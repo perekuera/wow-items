@@ -22,8 +22,8 @@ router.post(
   async (req, res, next) => {
     try {
       const { userName, password } = req.body;
-      const token = await authAccount(userName, password);
-      res.json({ token });
+      const accountInfo = await authAccount(userName, password);
+      res.json(accountInfo);
     } catch (error) {
       next(error);
     }

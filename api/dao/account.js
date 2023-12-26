@@ -19,22 +19,24 @@ const getAccountCharacters = async (accountId) => {
 
 const getAccountVerifier = async (userName) => {
   const query =
-    "SELECT username, salt, verifier FROM acore_auth.account WHERE username = ?";
+    "SELECT id, username, salt, verifier FROM acore_auth.account WHERE username = ?";
   const [result] = await pool.execute(query, [userName]);
   if (result.length === 0) {
     throw new Error("User not found");
   }
-  const { username, verifier, salt } = result[0];
-  return { username, verifier, salt };
+  const { id, username, verifier, salt } = result[0];
+  return { accountId: id, username, verifier, salt };
 };
 
 const authAccount = async (userName, password) => {
-  const { username, verifier, salt } = await getAccountVerifier(userName);
+  const { accountId, username, verifier, salt } = await getAccountVerifier(
+    userName
+  );
   const userVerifier = calculateVerifier(username, password, salt);
   if (!verifier.equals(userVerifier)) {
     throw new Error("Invalid User Name/Password");
   }
-  return getToken();
+  return { accountId, userName: username, token: getToken() };
 };
 
 // Constant values
