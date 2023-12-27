@@ -2,13 +2,20 @@
   <v-layout class="rounded rounded-md">
     <v-app-bar
       v-if="appStore.logged"
-      title="WoW Items"
       density="comfortable"
       image="@/assets/wotlk_bg_2.jpg"
     >
+      <v-img
+        inline
+        class="ms-3"
+        :width="40"
+        :height="40"
+        src="/favicon.ico"
+      ></v-img>
+      <v-app-bar-title>WoWItems</v-app-bar-title>
       <template v-slot:image>
         <v-img
-          gradient="to top right, rgba(19,84,122,.3), rgba(128,208,199,.9)"
+          gradient="to top right, rgba(0,0,40,.7), rgba(40,40,160,.5)"
         ></v-img>
       </template>
       <v-tabs class="mr-4" selected-class="tab-selected">
