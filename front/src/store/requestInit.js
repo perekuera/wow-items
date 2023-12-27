@@ -10,7 +10,6 @@ register({
     return response;
   },
   responseError: (error) => {
-    console.log("INTERCEPT RESPONSE ERROR", error);
     return Promise.reject(error);
   },
 });
