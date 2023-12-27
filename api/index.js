@@ -28,8 +28,12 @@ app.use("/items", itemsRouter);
 app.use("/characters", charactersRouter);
 
 app.use((err, req, res, _next) => {
+  let status = 500;
+  if (err.message.startsWith("Authorization")) {
+    status = 401;
+  }
   res
-    .status(500)
+    .status(status)
     .json({ request: req.path, method: req.method, message: err.message });
 });
 

@@ -1,4 +1,19 @@
+import { register } from "fetch-intercept";
 import { useAppStore } from "./app";
+
+register({
+  response: (response) => {
+    if (response.status === 401) {
+      const { logout } = useAppStore();
+      logout();
+    }
+    return response;
+  },
+  responseError: (error) => {
+    console.log("INTERCEPT RESPONSE ERROR", error);
+    return Promise.reject(error);
+  },
+});
 
 const baseUrl = "http://localhost:3003";
 

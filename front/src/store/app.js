@@ -69,9 +69,11 @@ export const useAppStore = defineStore("app", {
       }
     },
     logout() {
-      this.token = null;
-      this.logged = false;
-      router.push("/login");
+      if (this.logged) {
+        this.logged = false;
+        this.token = null;
+        router.push("/login");
+      }
     },
   },
   persist: {

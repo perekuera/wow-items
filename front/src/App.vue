@@ -65,7 +65,6 @@ const { logout, setCurrentLocale, getLocales, locale } = appStore;
 //ref(locale(navigator.language).iso);
 
 const selectLocale = (what) => {
-  console.log("what", what.id);
   setCurrentLocale(what);
 };
 
