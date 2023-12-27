@@ -22,7 +22,11 @@
             :loading="accountLoading"
           >
             <template v-slot:item.joindate="{ value }">
-              {{ new Intl.DateTimeFormat().format(new Date(value)) }}
+              {{
+                new Intl.DateTimeFormat(currentLocale.iso).format(
+                  new Date(value)
+                )
+              }}
             </template>
             <template v-slot:item.last_login="{ value }">
               {{ new Intl.DateTimeFormat().format(new Date(value)) }}
@@ -55,9 +59,13 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useAppStore } from "@/store/app";
 import { useRealmStore } from "@/store/realms";
 import { useAccountStore } from "@/store/accounts";
 import { useCharacterStore } from "@/store/characters";
+
+const appStore = useAppStore();
+const { currentLocale } = storeToRefs(appStore);
 
 const realmStore = useRealmStore();
 const { getRealms, getRealmCharacters } = realmStore;

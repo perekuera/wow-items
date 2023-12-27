@@ -25,7 +25,7 @@
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn prepend-icon="mdi-earth" v-bind="props">
-            {{ locale.split("-")[0] }}
+            {{ currentLocaleName }}
           </v-btn>
         </template>
         <v-list>
@@ -33,6 +33,7 @@
             v-for="(locale, index) in locales"
             :key="index"
             :value="index"
+            @click="selectLocale(locale)"
           >
             <v-list-item-title>{{ locale.name }}</v-list-item-title>
           </v-list-item>
@@ -53,13 +54,24 @@
 </style>
 
 <script setup>
-import { ref } from "vue";
+//import { ref } from "vue";
 import { useAppStore } from "@/store/app.js";
+import { storeToRefs } from "pinia";
 
 const appStore = useAppStore();
-const { logout, getLocales, locales } = appStore;
+const { locales, currentLocaleName } = storeToRefs(appStore);
+const { logout, setCurrentLocale, getLocales, locale } = appStore;
 
-const locale = ref("en-EN");
+//ref(locale(navigator.language).iso);
 
-getLocales().catch((error) => console.error(error));
+const selectLocale = (what) => {
+  console.log("what", what.id);
+  setCurrentLocale(what);
+};
+
+getLocales()
+  .then(() => {
+    setCurrentLocale(locale(navigator.language));
+  })
+  .catch((error) => console.error(error));
 </script>

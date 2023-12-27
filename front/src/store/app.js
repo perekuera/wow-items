@@ -10,7 +10,14 @@ export const useAppStore = defineStore("app", {
     userName: null,
     accountId: null,
     locales: [],
+    currentLocale: null,
   }),
+  getters: {
+    locale: (state) => (lang) =>
+      state.locales.find((l) => l.iso.split("-")[0] === lang) || {},
+    currentLocaleName: (state) =>
+      state.currentLocale ? state.currentLocale.iso.split("-")[1] : "",
+  },
   actions: {
     async getLocales() {
       try {
@@ -27,6 +34,9 @@ export const useAppStore = defineStore("app", {
       } finally {
         this.loading = false;
       }
+    },
+    setCurrentLocale(locale) {
+      this.currentLocale = locale;
     },
     async auth(userName, password) {
       try {
