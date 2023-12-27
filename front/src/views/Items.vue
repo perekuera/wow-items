@@ -4,7 +4,9 @@
       <v-card density="compact" variant="text" title="Items">
         <v-card-text>
           <v-row>
-            <v-col></v-col>
+            <v-col>
+              <v-text-field density="compact" label="Name"></v-text-field>
+            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
