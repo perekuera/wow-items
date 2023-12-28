@@ -13,10 +13,12 @@ export const useItemStore = defineStore("itemStore", () => {
   const itemQualities = ref([]);
   const itemStatTypes = ref([]);
 
-  const getWhatEver = async (action, state) => {
+  const getWhatEver = async (action, state, queryParams = {}) => {
     try {
       itemLoading.value = true;
-      const res = await fetch(`${baseUrl}/${action}`, getRequestInit());
+      const url = new URL(`${baseUrl}/${action}`);
+      url.search = new URLSearchParams(queryParams).toString();
+      const res = await fetch(url, getRequestInit());
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data);
@@ -30,8 +32,8 @@ export const useItemStore = defineStore("itemStore", () => {
     }
   };
 
-  const getItems = async () => {
-    return getWhatEver("items", items);
+  const getItems = async (params) => {
+    return getWhatEver("items", items, params);
   };
 
   const getItemClasses = async () => {
@@ -39,7 +41,7 @@ export const useItemStore = defineStore("itemStore", () => {
   };
 
   const getItemBondingTypes = async () => {
-    return getWhatEver("itmes/item-bonding-types", itemBondingTypes);
+    return getWhatEver("items/item-bonding-types", itemBondingTypes);
   };
 
   const getItemDamageTypes = async () => {

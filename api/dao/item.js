@@ -54,7 +54,7 @@ const getItems = async (params = {}) => {
   const conditions = Object.keys(params)
     .map((key) => {
       if ("name" === key.toLowerCase()) {
-        return `lower(concat(it.name, '|', itl.name) LIKE '%' || ? || '%'`;
+        return `lower(concat(it.name, '|', IFNULL(itl.name, ''))) LIKE concat('%', ?, '%')`;
       }
       return params[key] !== undefined ? `${key.toLowerCase()} = ?` : null;
     })
@@ -65,7 +65,9 @@ const getItems = async (params = {}) => {
     query += ` WHERE ${conditions}`;
   }
 
-  query += " LIMIT 1";
+  query += " ORDER BY itl.name, it.name";
+  query += " LIMIT 25";
+
   const [rows] = await pool.execute(query, Object.values(params));
   return rows;
 };
