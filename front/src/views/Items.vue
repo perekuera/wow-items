@@ -16,9 +16,45 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-      <v-card density="compact" variant="text" title="List"></v-card>
+      <v-card density="compact" variant="text" title="List">
+        <v-card-text>{{ items }}</v-card-text>
+      </v-card>
     </v-responsive>
   </v-container>
 </template>
 
-<script setup></script>
+<script setup>
+import { storeToRefs } from "pinia";
+import { useItemStore } from "@/store/items";
+
+const itemStore = useItemStore();
+
+const {
+  itemLoading,
+  items,
+  itemClasses,
+  itemBondingTypes,
+  itemDamageTypes,
+  itemInventoryTypes,
+  itemMaterials,
+  itemQualities,
+  itemStatTypes,
+} = storeToRefs(itemStore);
+
+const {
+  getItems,
+  getItemClasses,
+  getItemBondingTypes,
+  getItemDamageTypes,
+  getItemInventoryTypes,
+  getItemMaterials,
+  getItemQualities,
+  getItemStatTypes,
+} = itemStore;
+
+getItemDamageTypes()
+  .then((dt) => {
+    console.log("damage types", dt);
+  })
+  .catch((error) => console.error(error));
+</script>
