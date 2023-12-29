@@ -9,6 +9,7 @@
                 v-model="params.name"
                 density="compact"
                 label="Name"
+                autofocus
               ></v-text-field>
             </v-col>
           </v-row>
@@ -26,7 +27,23 @@
             density="comfortable"
             :headers="itemHeaders"
             :items="items"
-          ></v-data-table>
+          >
+            <template v-slot:item.class="{ item }">
+              {{ itemClass(item.class).name }}
+            </template>
+            <template v-slot:item.Quality="{ item }">
+              <v-chip
+                density="comfortable"
+                size="small"
+                label
+                :color="itemQuality(item.Quality).color.toLowerCase()"
+                >{{ itemQuality(item.Quality).name }}
+              </v-chip>
+            </template>
+            <template v-slot:item.InventoryType="{ item }">
+              {{ itemInventoryType(item.InventoryType).name }}
+            </template>
+          </v-data-table>
         </v-card-text>
         <v-card-text>{{ items }}</v-card-text>
       </v-card>
@@ -51,6 +68,9 @@ const {
   itemMaterials,
   itemQualities,
   itemStatTypes,
+  itemClass,
+  itemQuality,
+  itemInventoryType,
 } = storeToRefs(itemStore);
 
 const {
@@ -84,6 +104,7 @@ const itemHeaders = [
   {
     title: "Class",
     value: "class",
+    align: "center",
   },
   {
     title: "Name",
@@ -92,14 +113,17 @@ const itemHeaders = [
   {
     title: "Quality",
     value: "Quality",
+    align: "center",
   },
   {
     title: "Inventory type",
     value: "InventoryType",
+    align: "center",
   },
   {
     title: "Item level",
     value: "ItemLevel",
+    align: "center",
   },
 ];
 </script>

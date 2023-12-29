@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { baseUrl, getRequestInit } from "../requestInit.js";
 
 export const useItemStore = defineStore("itemStore", () => {
@@ -12,6 +12,18 @@ export const useItemStore = defineStore("itemStore", () => {
   const itemMaterials = ref([]);
   const itemQualities = ref([]);
   const itemStatTypes = ref([]);
+
+  const itemClass = computed(
+    () => (id) => itemClasses.value.find((ic) => ic.id === id) || {}
+  );
+
+  const itemQuality = computed(
+    () => (id) => itemQualities.value.find((iq) => iq.id === id) || {}
+  );
+
+  const itemInventoryType = computed(
+    () => (id) => itemInventoryTypes.value.find((it) => it.id === id) || {}
+  );
 
   const getWhatEver = async (action, state, queryParams = {}) => {
     try {
@@ -65,6 +77,7 @@ export const useItemStore = defineStore("itemStore", () => {
   };
 
   return {
+    //states
     itemLoading,
     items,
     itemClasses,
@@ -74,6 +87,11 @@ export const useItemStore = defineStore("itemStore", () => {
     itemMaterials,
     itemQualities,
     itemStatTypes,
+    //getters
+    itemClass,
+    itemQuality,
+    itemInventoryType,
+    //actions
     getItems,
     getItemClasses,
     getItemBondingTypes,
