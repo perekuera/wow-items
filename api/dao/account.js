@@ -66,8 +66,8 @@ function calculateVerifier(username, password, salt) {
 const TOKEN_KEY =
   "eb1bce5451e30f890283a8cdf023c33ee62da26c30458642bf9a15e0e01d16ae";
 
-const TOKEN_DURATION = 60 * 30; // seconds
-const TOKEN_RENEW = 60 * 10; // seconds
+const TOKEN_DURATION = 60 * 45; // seconds
+const TOKEN_RENEW = 60 * 15; // seconds
 
 const getToken = (userName) => {
   return jwt.sign({ userName }, TOKEN_KEY, { expiresIn: `${TOKEN_DURATION}s` });
@@ -90,9 +90,7 @@ const checkToken = (req, res, next) => {
     const exp = decoded.exp;
     const now = parseInt(Date.now() / 1000);
     const diff = exp - now;
-    console.log("token diff is ", diff, TOKEN_RENEW);
     if (diff < TOKEN_RENEW) {
-      console.log("renew!");
       res.header("Renew-Authorization", getToken(decoded.userName));
     }
     next();
