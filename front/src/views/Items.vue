@@ -10,7 +10,44 @@
                 density="compact"
                 label="Name"
                 autofocus
+                clearable
               ></v-text-field>
+            </v-col>
+            <v-col>
+              <v-select
+                v-model="params.quality"
+                density="compact"
+                label="Quality"
+                :items="itemQualities"
+                itemTitle="name"
+                itemValue="id"
+                clearable
+              ></v-select>
+            </v-col>
+            <v-col>
+              <v-select
+                v-model="params.inventoryType"
+                density="compact"
+                label="Inventory type"
+                :items="itemInventoryTypes"
+                itemTitle="name"
+                itemValue="id"
+                clearable
+                hide-details
+              >
+              </v-select>
+            </v-col>
+            <v-col>
+              <v-range-slider
+                v-model="params.levelRange"
+                density="compact"
+                label="Item level"
+                :min="1"
+                :max="100"
+                :step="1"
+                thumb-label
+                hide-details
+              ></v-range-slider>
             </v-col>
           </v-row>
         </v-card-text>
@@ -45,6 +82,7 @@
             </template>
           </v-data-table>
         </v-card-text>
+        <v-card-text>{{ params }}</v-card-text>
         <v-card-text>{{ items }}</v-card-text>
       </v-card>
     </v-responsive>
@@ -86,10 +124,17 @@ const {
 
 const params = ref({
   name: null,
+  quality: null,
+  inventoryType: null,
+  levelRange: [1, 80],
 });
 
 const itemsQuery = () => {
-  getItems(params.value).catch((error) => console.error(error));
+  getItems(
+    Object.fromEntries(
+      Object.entries(params.value).filter(([_key, value]) => value !== null)
+    )
+  ).catch((error) => console.error(error));
 };
 
 getItemClasses().catch((error) => console.error(error));
