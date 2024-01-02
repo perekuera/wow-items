@@ -45,6 +45,25 @@ const getItems = async (params = {}) => {
       FROM      acore_world.item_template it 
       LEFT JOIN acore_world.item_template_locale itl ON (entry = id AND locale = '${locale}')
     `;
+
+  // Special params
+  const xConditions = [];
+  const xValues = [];
+  if (params.desc) {
+    xConditions.push(
+      `lower(concat(it.name, '|', IFNULL(itl.name, ''))) LIKE concat('%', ?, '%')`
+    );
+    xValues.push(params.desc);
+  }
+  if (params.itemLevelFrom) {
+    xConditions.push(`ItemLevel >= $`);
+    xValues.push(parseInt(params.itemLevelFrom));
+  }
+  if (params.itemLevelTo) {
+    xConditions.push(`ItemLevel <= $`);
+    xValues.push(parseInt(params.itemLevelTo));
+  }
+
   params = Object.fromEntries(
     Object.entries(params).filter(
       ([key, _value]) => key && CHECKED_QUERY.includes(key.toLowerCase())
@@ -59,6 +78,7 @@ const getItems = async (params = {}) => {
       return params[key] !== undefined ? `${key.toLowerCase()} = ?` : null;
     })
     .filter((condition) => condition !== null)
+    .concat(xConditions)
     .join(" AND ");
 
   if (conditions) {
@@ -68,7 +88,12 @@ const getItems = async (params = {}) => {
   query += " ORDER BY itl.name, it.name";
   query += " LIMIT 25";
 
-  const [rows] = await pool.execute(query, Object.values(params));
+  const values = Object.values(params).concat(xValues);
+
+  console.log("QUERY", query);
+  console.log("VALUES", values);
+
+  const [rows] = await pool.execute(query, values);
   return rows;
 };
 
