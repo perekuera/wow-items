@@ -26,12 +26,13 @@
             </v-col>
             <v-col>
               <v-select
-                v-model="params.quality"
+                v-model="params.qualities"
                 density="compact"
                 label="Quality"
                 :items="itemQualities"
                 itemTitle="name"
                 itemValue="id"
+                multiple
                 clearable
               ></v-select>
             </v-col>
@@ -91,13 +92,13 @@
           <v-spacer></v-spacer>
           <v-btn
             prepend-icon="mdi-magnify"
-            :loading="itemLoading"
+            :disabled="itemLoading"
             @click="itemsQuery"
             >Search</v-btn
           >
           <v-btn
             prepend-icon="mdi-file"
-            :loading="itemLoading"
+            :disabled="itemLoading"
             @click="resetFilters"
             >Reset</v-btn
           >
@@ -156,12 +157,12 @@ const {
   itemLoading,
   items,
   itemClasses,
-  itemBondingTypes,
-  itemDamageTypes,
+  //itemBondingTypes,
+  //itemDamageTypes,
   itemInventoryTypes,
   itemMaterials,
   itemQualities,
-  itemStatTypes,
+  //itemStatTypes,
   itemClass,
   itemSubclass,
   itemQuality,
@@ -172,26 +173,33 @@ const {
 const {
   getItems,
   getItemClasses,
-  getItemBondingTypes,
-  getItemDamageTypes,
+  //getItemBondingTypes,
+  //getItemDamageTypes,
   getItemInventoryTypes,
   getItemMaterials,
   getItemQualities,
-  getItemStatTypes,
+  //getItemStatTypes,
 } = itemStore;
 
 const params = ref({
   itemClass: null,
   desc: null,
-  quality: null,
+  //quality: null,
+  qualities: [],
   inventoryType: null,
   material: null,
+  minItemLevel: null,
+  maxItemLevel: null,
+  minRequiredLevel: null,
+  maxRequiredLevel: null,
 });
 
 const itemsQuery = () => {
   getItems(
     Object.fromEntries(
-      Object.entries(params.value).filter(([_key, value]) => value !== null)
+      Object.entries({ ...params.value }).filter(([_key, value]) =>
+        Array.isArray(value) ? value.length > 0 : value !== null
+      )
     )
   ).catch((error) => console.error(error));
 };
@@ -200,19 +208,24 @@ const resetFilters = () => {
   params.value = {
     itemClass: null,
     desc: null,
-    quality: null,
+    //quality: null,
+    qualities: [],
     inventoryType: null,
     material: null,
+    minItemLevel: null,
+    maxItemLevel: null,
+    minRequiredLevel: null,
+    maxRequiredLevel: null,
   };
 };
 
 getItemClasses().catch((error) => console.error(error));
-getItemBondingTypes().catch((error) => console.error(error));
-getItemDamageTypes().catch((error) => console.error(error));
+//getItemBondingTypes().catch((error) => console.error(error));
+//getItemDamageTypes().catch((error) => console.error(error));
 getItemInventoryTypes().catch((error) => console.error(error));
 getItemMaterials().catch((error) => console.error(error));
 getItemQualities().catch((error) => console.error(error));
-getItemStatTypes().catch((error) => console.error(error));
+//getItemStatTypes().catch((error) => console.error(error));
 
 const itemHeaders = [
   {
@@ -232,6 +245,11 @@ const itemHeaders = [
   {
     title: "Material",
     value: "Material",
+    align: "center",
+  },
+  {
+    title: "Req. level",
+    value: "RequiredLevel",
     align: "center",
   },
   {

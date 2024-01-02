@@ -50,19 +50,23 @@ const getItems = async (params = {}) => {
   // Special params
   const xConditions = [];
   const xValues = [];
+
   if (params.desc) {
     xConditions.push(
       `lower(concat(it.name, '|', IFNULL(itl.name, ''))) LIKE concat('%', ?, '%')`
     );
     xValues.push(params.desc);
   }
-  if (params.itemLevelFrom) {
-    xConditions.push(`ItemLevel >= $`);
-    xValues.push(parseInt(params.itemLevelFrom));
+  if (params.qualities) {
+    xConditions.push(`Quality IN (${params.qualities})`);
   }
-  if (params.itemLevelTo) {
-    xConditions.push(`ItemLevel <= $`);
-    xValues.push(parseInt(params.itemLevelTo));
+  if (params.minItemLevel) {
+    xConditions.push(`ItemLevel >= ?`);
+    xValues.push(parseInt(params.minItemLevel));
+  }
+  if (params.maxItemLevel) {
+    xConditions.push(`ItemLevel <= ?`);
+    xValues.push(parseInt(params.maxItemLevel));
   }
 
   params = Object.fromEntries(

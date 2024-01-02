@@ -60,6 +60,9 @@ export const useItemStore = defineStore("itemStore", () => {
 
   const getItems = async (params) => {
     params.locale = params.locale || appStore.currentLocale.id;
+    if (params.qualities) {
+      params.qualities = params.qualities.join(",");
+    }
     return getWhatEver("items", items, params);
   };
 
