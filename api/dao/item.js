@@ -20,6 +20,7 @@ const CHECKED_QUERY = [
   "buyprice",
   "sellprice",
   "inventorytype",
+  "material",
   "allowableclass",
   "allowablerace",
   "itemlevel",
@@ -72,9 +73,9 @@ const getItems = async (params = {}) => {
 
   const conditions = Object.keys(params)
     .map((key) => {
-      if ("name" === key.toLowerCase()) {
+      /*if ("name" === key.toLowerCase()) {
         return `lower(concat(it.name, '|', IFNULL(itl.name, ''))) LIKE concat('%', ?, '%')`;
-      }
+      }*/
       return params[key] !== undefined ? `${key.toLowerCase()} = ?` : null;
     })
     .filter((condition) => condition !== null)

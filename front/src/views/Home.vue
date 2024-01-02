@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height">
+  <v-container fluid class="fill-height">
     <v-responsive class="align-center fill-height">
       <v-card density="compact" variant="text" title="Realms">
         <v-card-text>

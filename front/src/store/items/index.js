@@ -1,8 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { baseUrl, getRequestInit } from "../requestInit.js";
+import { useAppStore } from "../app.js";
 
 export const useItemStore = defineStore("itemStore", () => {
+  const appStore = useAppStore();
+
   const itemLoading = ref(false);
   const items = ref([]);
   const itemClasses = ref([]);
@@ -17,12 +20,23 @@ export const useItemStore = defineStore("itemStore", () => {
     () => (id) => itemClasses.value.find((ic) => ic.id === id) || {}
   );
 
+  const itemSubclass = computed(
+    () => (classId, id) =>
+      itemClasses.value
+        .find((ic) => ic.id === classId)
+        .subclasses.find((sc) => sc.id === id) || {}
+  );
+
   const itemQuality = computed(
     () => (id) => itemQualities.value.find((iq) => iq.id === id) || {}
   );
 
   const itemInventoryType = computed(
     () => (id) => itemInventoryTypes.value.find((it) => it.id === id) || {}
+  );
+
+  const itemMaterial = computed(
+    () => (id) => itemMaterials.value.find((m) => m.id === id) || {}
   );
 
   const getWhatEver = async (action, state, queryParams = {}) => {
@@ -45,6 +59,7 @@ export const useItemStore = defineStore("itemStore", () => {
   };
 
   const getItems = async (params) => {
+    params.locale = params.locale || appStore.currentLocale.id;
     return getWhatEver("items", items, params);
   };
 
@@ -89,8 +104,10 @@ export const useItemStore = defineStore("itemStore", () => {
     itemStatTypes,
     //getters
     itemClass,
+    itemSubclass,
     itemQuality,
     itemInventoryType,
+    itemMaterial,
     //actions
     getItems,
     getItemClasses,

@@ -1,12 +1,23 @@
 <template>
-  <v-container class="fill-height">
+  <v-container fluid class="fill-height">
     <v-responsive class="align-center fill-height">
       <v-card density="compact" variant="text" title="Items">
         <v-card-text>
           <v-row>
             <v-col>
+              <v-select
+                v-model="params.itemClass"
+                density="compact"
+                label="Item class"
+                :items="itemClasses"
+                itemTitle="name"
+                itemValue="id"
+                clearable
+              ></v-select>
+            </v-col>
+            <v-col>
               <v-text-field
-                v-model="params.name"
+                v-model="params.desc"
                 density="compact"
                 label="Name"
                 autofocus
@@ -33,28 +44,63 @@
                 itemTitle="name"
                 itemValue="id"
                 clearable
-                hide-details
+              >
+              </v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-select
+                v-model="params.material"
+                density="compact"
+                label="Item material"
+                :items="itemMaterials"
+                itemTitle="material"
+                itemValue="id"
+                clearable
               >
               </v-select>
             </v-col>
             <v-col>
-              <v-range-slider
-                v-model="params.levelRange"
-                density="compact"
-                label="Item level"
-                :min="1"
-                :max="100"
-                :step="1"
-                thumb-label
-                hide-details
-              ></v-range-slider>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    v-model="params.minItemLevel"
+                    density="compact"
+                    type="number"
+                    label="Min. item level"
+                    clearable
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-model="params.maxItemLevel"
+                    density="compact"
+                    type="number"
+                    label="Max. item level"
+                    clearable
+                  ></v-text-field>
+                </v-col>
+              </v-row>
             </v-col>
+            <v-col></v-col>
+            <v-col> </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="itemsQuery">Search</v-btn>
-          <v-btn>Reset</v-btn>
+          <v-btn
+            prepend-icon="mdi-magnify"
+            :loading="itemLoading"
+            @click="itemsQuery"
+            >Search</v-btn
+          >
+          <v-btn
+            prepend-icon="mdi-file"
+            :loading="itemLoading"
+            @click="resetFilters"
+            >Reset</v-btn
+          >
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -64,21 +110,31 @@
             density="comfortable"
             :headers="itemHeaders"
             :items="items"
+            :loading="itemLoading"
           >
+            <template v-slot:item.name="{ item }">
+              {{ item.locale_name || item.name }}
+            </template>
             <template v-slot:item.class="{ item }">
-              {{ itemClass(item.class).name }}
+              {{ itemClass(item.class).name }} ({{
+                itemSubclass(item.class, item.subclass).name
+              }})
+            </template>
+            <template v-slot:item.InventoryType="{ item }">
+              {{ itemInventoryType(item.InventoryType).name }}
+            </template>
+            <template v-slot:item.Material="{ item }">
+              {{ itemMaterial(item.Material).material }}
             </template>
             <template v-slot:item.Quality="{ item }">
               <v-chip
+                class="pa-3"
                 density="comfortable"
                 size="small"
                 label
                 :color="itemQuality(item.Quality).color.toLowerCase()"
                 >{{ itemQuality(item.Quality).name }}
               </v-chip>
-            </template>
-            <template v-slot:item.InventoryType="{ item }">
-              {{ itemInventoryType(item.InventoryType).name }}
             </template>
           </v-data-table>
         </v-card-text>
@@ -107,8 +163,10 @@ const {
   itemQualities,
   itemStatTypes,
   itemClass,
+  itemSubclass,
   itemQuality,
   itemInventoryType,
+  itemMaterial,
 } = storeToRefs(itemStore);
 
 const {
@@ -123,10 +181,11 @@ const {
 } = itemStore;
 
 const params = ref({
-  name: null,
+  itemClass: null,
+  desc: null,
   quality: null,
   inventoryType: null,
-  levelRange: [1, 80],
+  material: null,
 });
 
 const itemsQuery = () => {
@@ -135,6 +194,16 @@ const itemsQuery = () => {
       Object.entries(params.value).filter(([_key, value]) => value !== null)
     )
   ).catch((error) => console.error(error));
+};
+
+const resetFilters = () => {
+  params.value = {
+    itemClass: null,
+    desc: null,
+    quality: null,
+    inventoryType: null,
+    material: null,
+  };
 };
 
 getItemClasses().catch((error) => console.error(error));
@@ -156,13 +225,18 @@ const itemHeaders = [
     value: "name",
   },
   {
-    title: "Quality",
-    value: "Quality",
+    title: "Inventory type",
+    value: "InventoryType",
     align: "center",
   },
   {
-    title: "Inventory type",
-    value: "InventoryType",
+    title: "Material",
+    value: "Material",
+    align: "center",
+  },
+  {
+    title: "Quality",
+    value: "Quality",
     align: "center",
   },
   {
