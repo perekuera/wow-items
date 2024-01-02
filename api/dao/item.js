@@ -99,7 +99,7 @@ const getItems = async (params = {}) => {
   }
 
   query += " ORDER BY itl.name, it.name";
-  query += " LIMIT 25";
+  query += " LIMIT 500";
 
   const values = Object.values(params).concat(xValues);
 

@@ -132,6 +132,7 @@
             :headers="itemHeaders"
             :items="items"
             :loading="itemLoading"
+            items-per-page="100"
           >
             <template v-slot:item.name="{ item }">
               {{ item.locale_name || item.name }}
@@ -159,8 +160,6 @@
             </template>
           </v-data-table>
         </v-card-text>
-        <v-card-text>{{ params }}</v-card-text>
-        <v-card-text>{{ items }}</v-card-text>
       </v-card>
     </v-responsive>
   </v-container>
