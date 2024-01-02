@@ -68,6 +68,14 @@ const getItems = async (params = {}) => {
     xConditions.push(`ItemLevel <= ?`);
     xValues.push(parseInt(params.maxItemLevel));
   }
+  if (params.minRequiredLevel) {
+    xConditions.push(`RequiredLevel >= ?`);
+    xValues.push(parseInt(params.minRequiredLevel));
+  }
+  if (params.maxRequiredLevel) {
+    xConditions.push(`RequiredLevel <= ?`);
+    xValues.push(parseInt(params.minRequiredLevel));
+  }
 
   params = Object.fromEntries(
     Object.entries(params).filter(
@@ -94,9 +102,6 @@ const getItems = async (params = {}) => {
   query += " LIMIT 25";
 
   const values = Object.values(params).concat(xValues);
-
-  console.log("QUERY", query);
-  console.log("VALUES", values);
 
   const [rows] = await pool.execute(query, values);
   return rows;

@@ -16,13 +16,28 @@
               ></v-select>
             </v-col>
             <v-col>
-              <v-text-field
-                v-model="params.desc"
+              <v-select
+                v-model="params.inventoryType"
                 density="compact"
-                label="Name"
-                autofocus
+                label="Inventory type"
+                :items="itemInventoryTypes"
+                itemTitle="name"
+                itemValue="id"
                 clearable
-              ></v-text-field>
+              >
+              </v-select>
+            </v-col>
+            <v-col>
+              <v-select
+                v-model="params.material"
+                density="compact"
+                label="Item material"
+                :items="itemMaterials"
+                itemTitle="material"
+                itemValue="id"
+                clearable
+              >
+              </v-select>
             </v-col>
             <v-col>
               <v-select
@@ -36,31 +51,38 @@
                 clearable
               ></v-select>
             </v-col>
-            <v-col>
-              <v-select
-                v-model="params.inventoryType"
-                density="compact"
-                label="Inventory type"
-                :items="itemInventoryTypes"
-                itemTitle="name"
-                itemValue="id"
-                clearable
-              >
-              </v-select>
-            </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <v-select
-                v-model="params.material"
+              <v-text-field
+                v-model="params.desc"
                 density="compact"
-                label="Item material"
-                :items="itemMaterials"
-                itemTitle="material"
-                itemValue="id"
+                label="Name"
+                autofocus
                 clearable
-              >
-              </v-select>
+              ></v-text-field>
+            </v-col>
+            <v-col>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    v-model="params.minRequiredLevel"
+                    density="compact"
+                    type="number"
+                    label="Min. level"
+                    clearable
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    v-model="params.maxRequiredLevel"
+                    density="compact"
+                    type="number"
+                    label="Max. level"
+                    clearable
+                  ></v-text-field>
+                </v-col>
+              </v-row>
             </v-col>
             <v-col>
               <v-row>
@@ -84,8 +106,6 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col></v-col>
-            <v-col> </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
@@ -248,13 +268,13 @@ const itemHeaders = [
     align: "center",
   },
   {
-    title: "Req. level",
-    value: "RequiredLevel",
+    title: "Quality",
+    value: "Quality",
     align: "center",
   },
   {
-    title: "Quality",
-    value: "Quality",
+    title: "Req. level",
+    value: "RequiredLevel",
     align: "center",
   },
   {

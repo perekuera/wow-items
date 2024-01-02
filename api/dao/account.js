@@ -91,6 +91,7 @@ const checkToken = (req, res, next) => {
     const now = parseInt(Date.now() / 1000);
     const diff = exp - now;
     if (diff < TOKEN_RENEW) {
+      res.header("Access-Control-Expose-Headers", "Renew-Authorization");
       res.header("Renew-Authorization", getToken(decoded.userName));
     }
     next();

@@ -7,6 +7,13 @@ register({
       const { logout } = useAppStore();
       logout();
     }
+
+    const newToken = response.headers.get("Renew-Authorization");
+    if (newToken) {
+      const { renewToken } = useAppStore();
+      renewToken(newToken);
+    }
+
     return response;
   },
   responseError: (error) => {
