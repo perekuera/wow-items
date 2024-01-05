@@ -36,7 +36,7 @@ const authAccount = async (userName, password) => {
   if (!verifier.equals(userVerifier)) {
     throw new Error("Invalid User Name/Password");
   }
-  return { accountId, userName: username, token: getToken() };
+  return { accountId, userName: username, password, token: getToken() };
 };
 
 // Constant values
@@ -100,4 +100,49 @@ const checkToken = (req, res, next) => {
   }
 };
 
-export { getAccounts, getAccountCharacters, authAccount, checkToken };
+const secretKey = crypto.randomBytes(32).toString("hex");
+
+const encrypt = (text) => {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(
+    "aes-256-cbc",
+    Buffer.from(secretKey),
+    iv
+  );
+  let encrypted = cipher.update(text, "utf-8", "hex");
+  encrypted += cipher.final("hex");
+  return {
+    iv: iv.toString("hex"),
+    encryptedText: encrypted,
+  };
+};
+
+const decrypt = (encryptedData) => {
+  const decipher = crypto.createDecipheriv(
+    "aes-256-cbc",
+    Buffer.from(secretKey),
+    Buffer.from(encryptedData.iv, "hex")
+  );
+  let decrypted = decipher.update(encryptedData.encryptedText, "hex", "utf-8");
+  decrypted += decipher.final("utf-8");
+  return decrypted;
+};
+
+const usersInfo = new Map();
+
+const addUserInfo = (userName, password) => {
+  usersInfo.set(userName, encrypt(password));
+};
+
+const getUserInfo = (userName) => {
+  return decrypt(usersInfo.get(userName));
+};
+
+export {
+  getAccounts,
+  getAccountCharacters,
+  authAccount,
+  checkToken,
+  addUserInfo,
+  getUserInfo,
+};
