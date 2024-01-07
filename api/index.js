@@ -7,6 +7,7 @@ import accountsRouter from "./routes/accounts.js";
 import realmsRouter from "./routes/realms.js";
 import itemsRouter from "./routes/items.js";
 import charactersRouter from "./routes/characters.js";
+import commandsRouter from "./routes/commands.js";
 import dotenv from "dotenv";
 import { checkToken } from "./dao/account.js";
 
@@ -26,6 +27,7 @@ app.use("/accounts", accountsRouter);
 app.use("/realms", realmsRouter);
 app.use("/items", itemsRouter);
 app.use("/characters", charactersRouter);
+app.use("/commands", commandsRouter);
 
 app.use((err, req, res, _next) => {
   let status = 500;

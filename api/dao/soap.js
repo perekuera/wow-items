@@ -1,13 +1,16 @@
 import http from "http";
 import { parseStringPromise } from "xml2js";
+import { getUserInfo } from "./account.js";
 
-const sendSoapCommand = (command, username, password) => {
+const sendSoapCommand = (command, username) => {
+  const password = getUserInfo(username);
+  console.log(`Password for user ${username} is ${password}`);
   return new Promise((resolve, reject) => {
     const req = http.request(
       {
         port: 7878,
         method: "POST",
-        hostname: "localhost",
+        hostname: "127.0.0.1",
         auth: `${username}:${password}`,
         headers: { "Content-Type": "application/xml" },
       },

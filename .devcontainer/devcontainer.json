@@ -9,7 +9,12 @@
       "extensions": ["esbenp.prettier-vscode", "Vue.volar"]
     }
   },
-  "runArgs": ["--network=azerothcore-wotlk_ac-network"]
+  "runArgs": ["--network=azerothcore-wotlk_ac-network"],
+  "portsAttributes": {
+    "7878": {
+      "label": "SOAP port"
+    }
+  }
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},

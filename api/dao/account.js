@@ -36,7 +36,13 @@ const authAccount = async (userName, password) => {
   if (!verifier.equals(userVerifier)) {
     throw new Error("Invalid User Name/Password");
   }
-  return { accountId, userName: username, password, token: getToken() };
+  addUserInfo(userName, password);
+  return {
+    accountId,
+    userName: username,
+    password,
+    token: createToken(userName),
+  };
 };
 
 // Constant values
@@ -69,8 +75,19 @@ const TOKEN_KEY =
 const TOKEN_DURATION = 60 * 45; // seconds
 const TOKEN_RENEW = 60 * 15; // seconds
 
-const getToken = (userName) => {
-  return jwt.sign({ userName }, TOKEN_KEY, { expiresIn: `${TOKEN_DURATION}s` });
+const createToken = (userName) => {
+  return jwt.sign({ userName }, TOKEN_KEY, {
+    expiresIn: `${TOKEN_DURATION}s`,
+  });
+};
+
+const parseToken = (token) => {
+  try {
+    token = token.replace("Bearer ", "");
+    return jwt.verify(token, TOKEN_KEY);
+  } catch (error) {
+    throw new Error("Authorization error: invalid token");
+  }
 };
 
 const checkToken = (req, res, next) => {
@@ -78,21 +95,20 @@ const checkToken = (req, res, next) => {
     return next();
   }
 
-  let token = req.header("Authorization");
+  const token = req.header("Authorization");
 
   if (!token) {
     throw new Error("Authorization error: no token provided");
   }
 
   try {
-    token = token.replace("Bearer ", "");
-    const decoded = jwt.verify(token, TOKEN_KEY);
+    const decoded = parseToken(token);
     const exp = decoded.exp;
     const now = parseInt(Date.now() / 1000);
     const diff = exp - now;
     if (diff < TOKEN_RENEW) {
       res.header("Access-Control-Expose-Headers", "Renew-Authorization");
-      res.header("Renew-Authorization", getToken(decoded.userName));
+      res.header("Renew-Authorization", createToken(decoded.userName));
     }
     next();
   } catch (error) {
@@ -106,7 +122,7 @@ const encrypt = (text) => {
   const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv(
     "aes-256-cbc",
-    Buffer.from(secretKey),
+    Buffer.from(secretKey, "hex"),
     iv
   );
   let encrypted = cipher.update(text, "utf-8", "hex");
@@ -118,9 +134,10 @@ const encrypt = (text) => {
 };
 
 const decrypt = (encryptedData) => {
+  console.log("encrypted data", encryptedData);
   const decipher = crypto.createDecipheriv(
     "aes-256-cbc",
-    Buffer.from(secretKey),
+    Buffer.from(secretKey, "hex"),
     Buffer.from(encryptedData.iv, "hex")
   );
   let decrypted = decipher.update(encryptedData.encryptedText, "hex", "utf-8");
@@ -143,6 +160,6 @@ export {
   getAccountCharacters,
   authAccount,
   checkToken,
-  addUserInfo,
+  parseToken,
   getUserInfo,
 };
