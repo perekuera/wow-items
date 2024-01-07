@@ -1,6 +1,7 @@
 import express from "express";
 import { parseToken } from "../dao/account.js";
 import sendSoapCommand from "../dao/soap.js";
+import sendTelnetCommand from "../dao/telnet.js";
 
 const router = express.Router();
 
@@ -9,9 +10,19 @@ const getUserName = (req) => {
   return parsedToken.userName;
 };
 
-router.get("/", async (req, res) => {
+router.get("/telnet", async (req, res) => {
+  const result = await sendTelnetCommand(".server info");
+  console.log("RESULT", result);
+  res.json({ ok });
+});
+
+router.get("/soap", async (req, res) => {
   const userName = getUserName(req);
-  const result = await sendSoapCommand("server info", userName)
+  console.log("show username", userName);
+  if (!userName) {
+    throw new Error("Invalid user name");
+  }
+  const result = await sendSoapCommand(".server info", userName)
     .then((what) => {
       console.log("THEN", what);
     })

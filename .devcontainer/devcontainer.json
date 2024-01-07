@@ -10,7 +10,8 @@
         }
     },
     "runArgs": [
-        "--network=azerothcore-wotlk_ac-network --env-file=.devcontainer/devcontainer.env"
+        "--network=azerothcore-wotlk_ac-network",
+        "--env-file=.devcontainer/devcontainer.env"
     ],
     "portsAttributes": {
         "7878": {

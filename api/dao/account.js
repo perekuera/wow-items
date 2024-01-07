@@ -134,6 +134,9 @@ const encrypt = (text) => {
 };
 
 const decrypt = (encryptedData) => {
+  if (!encryptedData) {
+    throw new Error("Invalid user data");
+  }
   console.log("encrypted data", encryptedData);
   const decipher = crypto.createDecipheriv(
     "aes-256-cbc",
