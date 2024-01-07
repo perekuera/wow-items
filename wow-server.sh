@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if ! docker info &> /dev/null; then
-    echo "Docker service is not running."
-    exit 1
+    echo "Docker service is not running. Starting..."
+    systemctl start docker
 fi
 
 AC_DOCKER_COMPOSE="../azerothcore-wotlk/docker-compose.custom.yml"
@@ -34,33 +34,37 @@ for arg in "${@,,}"; do
 done
 
 function do_build() {
+    echo "Building..."
     docker compose -f "$AC_DOCKER_COMPOSE" build
 }
 
 function do_up() {
+    echo "Starting..."
     docker compose -f "$AC_DOCKER_COMPOSE" up -d
 }
 
 function do_down() {
+    echo "Stopping..."
     docker compose -f "$AC_DOCKER_COMPOSE" down
 }
 
 function do_restart() {
+    echo "Restarting..."
     docker compose -f "$AC_DOCKER_COMPOSE" restart
 }
 
-if [ "$cmd" == "build" ]; then
+if [ "$ac_build" = "true" ]; then
     do_build
 fi
 
-if [ "$cmd" == "up" ]; then
+if [ "$ac_up" = "true" ]; then
     do_up
-elif [ "$cmd" == "down" ]; then
+elif [ "$ac_down" = "true" ]; then
     do_down
-elif [ "$cmd" == "restart" ]; then
+elif [ "$ac_restart" = "true" ]; then
     do_restart
 fi
 
-echo "Done."
+echo "Done!"
 
 exit 0
