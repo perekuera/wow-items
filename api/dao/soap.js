@@ -14,13 +14,17 @@ const sendSoapCommand = (command, username) => {
       console.log("START REQUEST!");
       const req = http.request(
         {
-          port: 7878,
+          port: 7979,
           method: "POST",
           //hostname: SOAP_HOST,
-          hostname: "127.0.0.1",
+          host: "127.0.0.1",
           timeout: 5000,
           auth: `${username}:${password}`,
-          headers: { "Content-Type": "text/xml;charset=UTF-8" },
+          headers: {
+            Accept: "application/xml",
+            "Content-Type": "application/xml;charset=UTF-8",
+            "Access-Control-Allow-Origin": "*",
+          },
         },
         (res) => {
           res.on("error", (error) => {

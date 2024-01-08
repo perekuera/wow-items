@@ -10,7 +10,7 @@ import charactersRouter from "./routes/characters.js";
 import commandsRouter from "./routes/commands.js";
 import dotenv from "dotenv";
 import { checkToken } from "./dao/account.js";
-import { Telnet } from "telnet-client";
+
 const require = createRequire(import.meta.url);
 const __dirname = new URL(".", import.meta.url).pathname;
 
@@ -53,37 +53,3 @@ app.listen(port, () => {
   console.log(`AC_DB_HOST is ${process.env.AC_DB_HOST}`);
   console.log(`AC_SOAP_HOST is ${process.env.AC_SOAP_HOST}`);
 });
-
-const connection = new Telnet();
-
-const params = {
-  host: "localhost",
-  port: 3443, // Puerto por defecto para Telnet es 23
-  shellPrompt: "/ # ", // Puedes ajustar esto según tu prompt
-  timeout: 1500,
-  //shellPrompt: "AC>",
-  loginPrompt: /Username: /i,
-  passwordPrompt: /Password: /i,
-  username: "PEREKUERA",
-  password: "xxx",
-  negotiationMandatory: false,
-};
-
-connection
-  .connect(params)
-  .then(() => {
-    console.log("Conectado a Telnet");
-    // Aquí puedes enviar comandos Telnet, por ejemplo:
-    return connection.exec("help\r\n");
-  })
-  .then((result) => {
-    console.log("Respuesta del comando ls:", result);
-    console.log("fin");
-  })
-  .catch((err) => {
-    console.error("Error:", err);
-  })
-  .finally(() => {
-    connection.end();
-    console.log("Desconectado de Telnet");
-  });
