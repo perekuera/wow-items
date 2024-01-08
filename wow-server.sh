@@ -11,6 +11,8 @@ ac_build=false
 ac_up=false
 ac_down=false
 ac_restart=false
+ac_logs=false
+ac_ls=false
 
 for arg in "${@,,}"; do
     case "$arg" in
@@ -26,6 +28,12 @@ for arg in "${@,,}"; do
         restart)
             ac_restart=true
             ;;
+        logs)
+            ac_logs=true
+            ;;
+        ls)
+            ac_ls=true
+            ;;
         *)
             echo "Unknown argument: $arg"
             exit 1
@@ -33,36 +41,30 @@ for arg in "${@,,}"; do
     esac
 done
 
-function do_build() {
+if [ "$ac_build" = "true" ]; then
     echo "Building..."
     docker compose -f "$AC_DOCKER_COMPOSE" build
-}
-
-function do_up() {
-    echo "Starting..."
-    docker compose -f "$AC_DOCKER_COMPOSE" up -d
-}
-
-function do_down() {
-    echo "Stopping..."
-    docker compose -f "$AC_DOCKER_COMPOSE" down
-}
-
-function do_restart() {
-    echo "Restarting..."
-    docker compose -f "$AC_DOCKER_COMPOSE" restart
-}
-
-if [ "$ac_build" = "true" ]; then
-    do_build
 fi
 
 if [ "$ac_up" = "true" ]; then
-    do_up
+    echo "Starting..."
+    docker compose -f "$AC_DOCKER_COMPOSE" up -d
 elif [ "$ac_down" = "true" ]; then
-    do_down
+    echo "Stopping..."
+    docker compose -f "$AC_DOCKER_COMPOSE" down
 elif [ "$ac_restart" = "true" ]; then
-    do_restart
+    echo "Restarting..."
+    docker compose -f "$AC_DOCKER_COMPOSE" restart
+fi
+
+if [ "$ac_logs" = "true" ]; then
+    echo "Logging..."
+    docker compose -f "$AC_DOCKER_COMPOSE" logs
+fi
+
+if [ "$ac_ls" = "true" ]; then
+    echo "Listing..."
+    docker compose -f "$AC_DOCKER_COMPOSE" ls
 fi
 
 echo "Done!"
