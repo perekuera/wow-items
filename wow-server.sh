@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$1" = "" ]; then
+  echo "Error: an argument is needed"
+  echo "Use: $0 [build] [up] [down] [restart] [logs] [ls]"
+  exit 1
+fi
+
 if ! docker info &> /dev/null; then
     echo "Docker service is not running. Starting..."
     systemctl start docker
