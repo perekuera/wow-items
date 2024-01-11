@@ -8,7 +8,7 @@ const sendTelnetCommand = async () => {
       host: process.env.AC_TELNET_HOST,
       port: 3443,
       timeout: 10000,
-      username: "perekuera",
+      username: "xxx",
       password: "xxx",
     });
   } catch (error) {

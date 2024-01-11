@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Define the SOAP service host and port
-telnet_host="example.com"
+telnet_host="localhost"
 telnet_port=3443
-telnet_user="your_username"
-telnet_password="your_password"
+telnet_user="$1"
+telnet_password="$2"
+telnet_additional_command="$3"
 
 # Construct the expect script
 expect_script=$(cat <<EOL
@@ -13,17 +14,20 @@ expect "login:"
 send "$telnet_user\r"
 expect "Password:"
 send "$telnet_password\r"
-expect "$ "  # Assumes the telnet prompt ends with "$" (adjust as needed)
+expect "AC>"
 send "$telnet_additional_command\r"
-expect eof
+expect "AC>"
+send "exit"
 EOL
 )
 
 # Run the expect script
 response=$(expect -c "$expect_script")
 
-# Extract the content of a specific tag (assuming the tag is "YourElement")
-parsed_response=$(echo "$response" | grep -oP '<YourElement>\K[^<]+')
+#matched_content=$(echo "$response" | grep -oP "AC>$telnet_additional_command\K.*" | sed -n '/AC>/,$p')
+#matched_content=$(echo "$response" | awk '/AC>'"$telnet_additional_command"'/ {found=1; next} found {print} /AC>/ {found=0}')
+matched_content=$(echo "$response" | awk '/AC>'"$telnet_additional_command"'/ {found=1; next} found {if (/AC>/) {found=0} else {print}}')
 
-# Process the response as needed
-echo "Telnet Response: $parsed_response"
+
+# Print the response
+echo -e "\nMatch: $matched_content"
