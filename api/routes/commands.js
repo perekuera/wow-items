@@ -1,6 +1,6 @@
 import express from "express";
 import { parseToken } from "../dao/account.js";
-import sendSoapCommand from "../dao/soap.js";
+import { sendSoapCommand, AzerothCore_Soap } from "../dao/soap.js";
 import sendTelnetCommand from "../dao/telnet.js";
 
 const router = express.Router();
@@ -22,11 +22,18 @@ router.get("/soap", async (req, res) => {
   if (!userName) {
     throw new Error("Invalid user name");
   }
-  const result = await sendSoapCommand(".server info", userName)
+  const result = await sendSoapCommand("server info", userName)
     .then((what) => {
       console.log("THEN", what);
     })
     .catch((error) => console.log("ERROR", error));
+  // const result = await AzerothCore_Soap("server info")
+  //   .then((what) => {
+  //     console.log("THEN", what);
+  //   })
+  //   .catch((error) => {
+  //     console.log("ERROR", error);
+  //   });
   console.log("RESULT", result);
   res.json({ userName });
 });

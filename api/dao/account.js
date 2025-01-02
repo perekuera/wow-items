@@ -136,6 +136,7 @@ const encrypt = (text) => {
 };
 
 const decrypt = (encryptedData) => {
+  console.log("decrypt data", encryptedData);
   if (!encryptedData) {
     throw new Error("Invalid user data");
   }
@@ -153,11 +154,13 @@ const decrypt = (encryptedData) => {
 const usersInfo = new Map();
 
 const addUserInfo = (userName, password) => {
-  console.log("ADD USER INFO", username, password);
+  console.log("ADD USER INFO", userName, password);
   usersInfo.set(userName, encrypt(password));
 };
 
 const getUserInfo = (userName) => {
+  console.log("GET USER INFO", userName);
+  console.log("USERS INFO", usersInfo);
   return decrypt(usersInfo.get(userName));
 };
 
