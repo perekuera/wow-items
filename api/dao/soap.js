@@ -7,6 +7,7 @@ console.log("SOAP_HOST now is", SOAP_HOST);
 
 const sendSoapCommand = (command, username) => {
   try {
+    console.log("SEND SOAP COMMAND", username, command);
     const password = getUserInfo(username);
     console.log("user INFO", password);
     console.log(`Password for user ${username} is ${password}`);

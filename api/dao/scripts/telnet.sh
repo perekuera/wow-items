@@ -31,3 +31,4 @@ matched_content=$(echo "$response" | awk '/AC>'"$telnet_additional_command"'/ {f
 
 # Print the response
 echo -e "\nMatch: $matched_content"
+#echo -e "\nResponse: $response"

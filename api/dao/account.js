@@ -29,9 +29,11 @@ const getAccountVerifier = async (userName) => {
 };
 
 const authAccount = async (userName, password) => {
+  console.log("AUTH ACCOUNT", userName, password);
   const { accountId, username, verifier, salt } = await getAccountVerifier(
     userName
   );
+  console.log("AUTH ACCOUNT", accountId, username, verifier, salt);
   const userVerifier = calculateVerifier(username, password, salt);
   if (!verifier.equals(userVerifier)) {
     throw new Error("Invalid User Name/Password");
@@ -151,6 +153,7 @@ const decrypt = (encryptedData) => {
 const usersInfo = new Map();
 
 const addUserInfo = (userName, password) => {
+  console.log("ADD USER INFO", username, password);
   usersInfo.set(userName, encrypt(password));
 };
 
