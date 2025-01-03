@@ -10,7 +10,7 @@ const getUserName = (req) => {
   return parsedToken.userName;
 };
 
-router.get("/telnet", async (req, res) => {
+router.get("/telnet", async (_req, res) => {
   const result = await sendTelnetCommand(".server info");
   console.log("RESULT", result);
   res.json({ ok });
@@ -18,11 +18,16 @@ router.get("/telnet", async (req, res) => {
 
 router.get("/soap", async (req, res) => {
   const userName = getUserName(req);
+  const command = req.query.command || "server info";
   if (!userName) {
     throw new Error("Invalid user name");
   }
-  const result = await sendSoapCommand("server info", userName);
-  res.json(result);
+  try {
+    const result = await sendSoapCommand(command, userName);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 export default router;

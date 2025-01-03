@@ -1,7 +1,10 @@
+import storage from "node-persist";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { modPow } from "bigint-crypto-utils";
 import pool from "./database.js";
+
+await storage.init();
 
 const getAccounts = async () => {
   const query =
@@ -116,7 +119,13 @@ const checkToken = (req, res, next) => {
   }
 };
 
-const secretKey = crypto.randomBytes(32).toString("hex");
+let secretKey =
+  (await storage.getItem("secretKey")) ||
+  crypto.randomBytes(32).toString("hex");
+
+console.log("SECRET KEY", secretKey);
+
+await storage.setItem("secretKey", secretKey);
 
 const encrypt = (text) => {
   const iv = crypto.randomBytes(16);
@@ -147,10 +156,16 @@ const decrypt = (encryptedData) => {
   return decrypted;
 };
 
-const usersInfo = new Map();
+let usersInfo = new Map((await storage.getItem("usersInfo")) || []);
+console.log("USERS INFO", usersInfo);
 
-const addUserInfo = (userName, password) => {
+const saveToStorage = async () => {
+  await storage.setItem("usersInfo", [...usersInfo]);
+};
+
+const addUserInfo = async (userName, password) => {
   usersInfo.set(userName, encrypt(password));
+  await saveToStorage();
 };
 
 const getUserInfo = (userName) => {

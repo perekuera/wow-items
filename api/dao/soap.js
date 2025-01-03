@@ -37,6 +37,7 @@ const sendSoapCommand = async (command, username) => {
             const body = xml["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0];
             const fault = body["SOAP-ENV:Fault"];
             if (fault) {
+              console.log("fault", fault);
               return reject({
                 faultCode: fault[0]["faultcode"][0],
                 faultString: fault[0]["faultstring"][0],
@@ -48,6 +49,7 @@ const sendSoapCommand = async (command, username) => {
                 result: response[0]["result"][0],
               });
             }
+            console.log("no response");
             console.log(data);
             reject(new Error("Unexpected SOAP response structure."));
           } catch (error) {
@@ -85,6 +87,7 @@ const sendSoapCommand = async (command, username) => {
       req.end();
     });
   } catch (error) {
+    console.error("Request error:", error);
     return new Promise((resolve, reject) => {
       reject(error);
     });
