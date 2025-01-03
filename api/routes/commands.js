@@ -21,13 +21,8 @@ router.get("/soap", async (req, res) => {
   if (!userName) {
     throw new Error("Invalid user name");
   }
-  const result = await sendSoapCommand("server info", userName)
-    .then((what) => {
-      console.log("THEN", what);
-    })
-    .catch((error) => console.log("ERROR", error));
-  console.log("RESULT", result);
-  res.json({ userName });
+  const result = await sendSoapCommand("server info", userName);
+  res.json(result);
 });
 
 export default router;
