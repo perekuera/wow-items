@@ -14,6 +14,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnp.*
 .env
+!devcontainer.env
 
 # Logs
 logs
