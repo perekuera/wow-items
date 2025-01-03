@@ -50,6 +50,4 @@ app.listen(port, () => {
   console.log(
     `Server running on ${process.env.NODE_ENV} environment, port ${port}`
   );
-  console.log(`AC_DB_HOST is ${process.env.AC_DB_HOST}`);
-  console.log(`AC_SOAP_HOST is ${process.env.AC_SOAP_HOST}`);
 });

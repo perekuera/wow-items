@@ -1,7 +1,6 @@
 import mysql from "mysql2/promise";
 
 const DB_HOST = process.env.AC_DB_HOST;
-console.log("DB_HOST now is", DB_HOST);
 
 // Configuración de la conexión a la base de datos
 const pool = mysql.createPool({
