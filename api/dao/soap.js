@@ -7,7 +7,6 @@ const SOAP_HOST = process.env.AC_SOAP_HOST;
 const sendSoapCommand = async (command, username) => {
   try {
     const password = getUserInfo(username);
-    console.log(`Password for user ${username} is ${password}`);
 
     const requestOptions = {
       port: 7878,
