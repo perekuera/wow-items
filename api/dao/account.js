@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { modPow } from "bigint-crypto-utils";
 import pool from "./database.js";
+
+dotenv.config();
 
 const getAccounts = async () => {
   const query =
@@ -69,7 +72,8 @@ function calculateVerifier(username, password, salt) {
   return Buffer.from(value.toString(16), "hex").reverse();
 }
 
-const TOKEN_KEY = process.env.TOKEN_KEY;
+const TOKEN_KEY = process.env.API_TOKEN_KEY;
+console.log("TOKEN_KEY", TOKEN_KEY);
 const TOKEN_DURATION = 60 * 45; // seconds
 const TOKEN_RENEW = 60 * 15; // seconds
 
