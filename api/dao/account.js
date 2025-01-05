@@ -69,9 +69,7 @@ function calculateVerifier(username, password, salt) {
   return Buffer.from(value.toString(16), "hex").reverse();
 }
 
-const TOKEN_KEY =
-  "eb1bce5451e30f890283a8cdf023c33ee62da26c30458642bf9a15e0e01d16ae";
-
+const TOKEN_KEY = process.env.TOKEN_KEY;
 const TOKEN_DURATION = 60 * 45; // seconds
 const TOKEN_RENEW = 60 * 15; // seconds
 
