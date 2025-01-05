@@ -158,6 +158,18 @@
                 >{{ itemQuality(item.Quality).name }}
               </v-chip>
             </template>
+            <template v-slot:item.entry="{ item }">
+              <!-- <v-chip
+                class="pa-3"
+                density="comfortable"
+                size="small"
+                label
+                :color="itemQuality(item.Quality).color.toLowerCase()"
+              >
+                {{ item.entry }}
+              </v-chip> -->
+              <item-tooltip :itemId="item.entry"></item-tooltip>
+            </template>
           </v-data-table>
         </v-card-text>
       </v-card>
@@ -169,6 +181,7 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useItemStore } from "@/store/items";
+import ItemTooltip from "@/components/ItemTooltip.vue";
 
 const itemStore = useItemStore();
 
