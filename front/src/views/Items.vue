@@ -281,5 +281,10 @@ const itemHeaders = [
     value: "ItemLevel",
     align: "center",
   },
+  {
+    title: "Id",
+    value: "entry",
+    align: "center",
+  },
 ];
 </script>
