@@ -73,11 +73,11 @@ function calculateVerifier(username, password, salt) {
 }
 
 const TOKEN_KEY = process.env.API_TOKEN_KEY;
-console.log("TOKEN_KEY", TOKEN_KEY);
-const TOKEN_DURATION = 60 * 45; // seconds
-const TOKEN_RENEW = 60 * 15; // seconds
+const TOKEN_DURATION = 60 * 360; // 6 hours
+const TOKEN_RENEW = 60 * 30; // 30 minutes
 
 const createToken = (userName) => {
+  console.log("createToken", userName);
   return jwt.sign({ userName }, TOKEN_KEY, {
     expiresIn: `${TOKEN_DURATION}s`,
   });
@@ -85,6 +85,7 @@ const createToken = (userName) => {
 
 const parseToken = (token) => {
   try {
+    console.log("parseToken", token);
     token = token.replace("Bearer ", "");
     return jwt.verify(token, TOKEN_KEY);
   } catch (error) {
@@ -104,11 +105,13 @@ const checkToken = (req, res, next) => {
   }
 
   try {
+    console.log("checkToken", token);
     const decoded = parseToken(token);
     const exp = decoded.exp;
     const now = parseInt(Date.now() / 1000);
     const diff = exp - now;
     if (diff < TOKEN_RENEW) {
+      console.log("renew token");
       res.header("Access-Control-Expose-Headers", "Renew-Authorization");
       res.header("Renew-Authorization", createToken(decoded.userName));
     }

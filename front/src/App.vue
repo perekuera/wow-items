@@ -73,4 +73,5 @@ getLocales()
     setCurrentLocale(locale(navigator.language));
   })
   .catch((error) => console.error(error));
+console.log("HEY!!!");
 </script>

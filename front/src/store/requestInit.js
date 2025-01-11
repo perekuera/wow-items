@@ -31,6 +31,7 @@ const getRequestInit = (
 ) => {
   const { token } = useAppStore();
   if (token) {
+    console.log("usando token", token);
     init.headers["Authorization"] = `Bearer ${token}`;
   }
   return init;

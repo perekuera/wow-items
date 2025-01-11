@@ -32,6 +32,7 @@ app.use("/commands", commandsRouter);
 app.use((err, req, res, _next) => {
   let status = 500;
   if (err.message.startsWith("Authorization")) {
+    console.log("Unauthorized error", err);
     status = 401;
   }
   res.status(status).json({
