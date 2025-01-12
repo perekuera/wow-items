@@ -300,4 +300,10 @@ const itemHeaders = [
     align: "center",
   },
 ];
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    itemsQuery();
+  }
+});
 </script>
