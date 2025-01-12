@@ -1,0 +1,37 @@
+services:
+  node-vue-builder:
+    container_name: node-vue-builder-20
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
+    image: node-vue-builder-20:latest
+    network_mode: host
+
+  api:
+    container_name: wow-items-api
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "3003:3003"
+    restart: on-failure:5
+    networks:
+      - ac-network
+
+  front:
+    container_name: wow-items-front
+    build:
+      context: .
+      dockerfile: Dockerfile.front
+    ports:
+      - "3000:3000"
+    restart: on-failure:5
+    depends_on:
+      - api
+    networks:
+      - ac-network
+
+networks:
+  ac-network:
+    external: true
+    name: azerothcore-wotlk_ac-network

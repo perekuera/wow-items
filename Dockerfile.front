@@ -1,0 +1,11 @@
+FROM node-vue-builder-20
+
+WORKDIR /app
+
+COPY ./front .
+
+RUN npm install
+
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "run", "dev"]

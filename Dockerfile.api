@@ -1,0 +1,11 @@
+FROM node-vue-builder-20
+
+WORKDIR /app
+
+COPY ./api .
+
+RUN npm install
+
+EXPOSE 3003
+
+ENTRYPOINT ["npm", "run", "serve"]
