@@ -32,9 +32,10 @@ export default {
   },
   setup(props) {
     const tooltipContent = ref(null);
+    const tooltipContentId = ref(null);
 
     const fetchTooltip = async () => {
-      if (tooltipContent.value) return; // Evita solicitudes repetidas
+      if (props.itemId === tooltipContentId.value) return; // Evita solicitudes repetidas
 
       try {
         const locale = 6; // Cambia según el idioma deseado
@@ -47,9 +48,12 @@ export default {
           const data = await response.text(); // Wowhead devuelve HTML
           const json = JSON.parse(data);
           tooltipContent.value = json.tooltip;
+          tooltipContentId.value = props.itemId;
           //await nextTick();
         } else {
           console.error("Error al obtener el tooltip");
+          tooltipContent.value = null;
+          tooltipContentId.value = null;
         }
       } catch (error) {
         console.error("Error al realizar la consulta:", error);
