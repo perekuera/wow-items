@@ -43,17 +43,16 @@ export default {
         const response = await fetch(
           `https://nether.wowhead.com/tooltip/item/${props.itemId}?dataEnv=${dataEnv}&locale=${locale}`
         );
-
+        tooltipContentId.value = props.itemId;
         if (response.ok) {
           const data = await response.text(); // Wowhead devuelve HTML
           const json = JSON.parse(data);
           tooltipContent.value = json.tooltip;
-          tooltipContentId.value = props.itemId;
           //await nextTick();
         } else {
           console.error("Error al obtener el tooltip");
-          tooltipContent.value = null;
-          tooltipContentId.value = null;
+          // tooltipContent.value = null;
+          // tooltipContentId.value = null;
         }
       } catch (error) {
         console.error("Error al realizar la consulta:", error);

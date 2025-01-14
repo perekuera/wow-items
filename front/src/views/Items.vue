@@ -264,40 +264,48 @@ const itemHeaders = [
     title: "Class",
     value: "class",
     align: "center",
+    sortable: true,
   },
   {
     title: "Name",
     value: "name",
+    sortable: true,
   },
   {
     title: "Inventory type",
     value: "InventoryType",
     align: "center",
+    sortable: true,
   },
   {
     title: "Material",
     value: "Material",
     align: "center",
+    sortable: true,
   },
   {
     title: "Quality",
     value: "Quality",
     align: "center",
+    sortable: true,
   },
   {
     title: "Req. level",
     value: "RequiredLevel",
     align: "center",
+    sortable: true,
   },
   {
     title: "Item level",
     value: "ItemLevel",
     align: "center",
+    sortable: true,
   },
   {
     title: "Id",
     value: "entry",
     align: "center",
+    sortable: true,
   },
 ];
 
