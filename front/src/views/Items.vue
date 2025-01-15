@@ -281,7 +281,7 @@ getItemQualities().catch((error) => console.error(error));
 
 const addItem = (itemId) => {
   // Add item
-  console.log("item id", itemId);
+  // TODO
 };
 
 const itemHeaders = [
