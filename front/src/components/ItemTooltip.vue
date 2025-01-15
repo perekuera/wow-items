@@ -50,7 +50,8 @@ export default {
           tooltipContent.value = json.tooltip;
           //await nextTick();
         } else {
-          console.error("Error al obtener el tooltip");
+          //console.error("Error al obtener el tooltip");
+          tooltipContent.value = "<b>Item not found</b>";
           // tooltipContent.value = null;
           // tooltipContentId.value = null;
         }

@@ -159,16 +159,30 @@
               </v-chip>
             </template>
             <template v-slot:item.entry="{ item }">
-              <!-- <v-chip
-                class="pa-3"
-                density="comfortable"
-                size="small"
-                label
-                :color="itemQuality(item.Quality).color.toLowerCase()"
-              >
-                {{ item.entry }}
-              </v-chip> -->
               <item-tooltip :itemId="item.entry"></item-tooltip>
+            </template>
+            <template v-slot:item.actions="{ item }">
+              <v-dialog max-width="640">
+                <template v-slot:activator="{ props: activatorProps }">
+                  <v-btn v-bind="activatorProps" icon size="x-small"
+                    ><v-icon>mdi-plus</v-icon></v-btn
+                  >
+                </template>
+                <template v-slot:default="{ isActive }">
+                  <v-card>
+                    <v-card-title>{{ item.name }}</v-card-title>
+                    <v-card-text>{{ accountCharacters }}</v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+
+                      <v-btn
+                        text="Close Dialog"
+                        @click="isActive.value = false"
+                      ></v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
             </template>
           </v-data-table>
         </v-card-text>
@@ -181,9 +195,11 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useItemStore } from "@/store/items";
+import { useAccountStore } from "@/store/accounts";
 import ItemTooltip from "@/components/ItemTooltip.vue";
 
 const itemStore = useItemStore();
+const accountStore = useAccountStore();
 
 const {
   itemLoading,
@@ -226,6 +242,10 @@ const params = ref({
   maxRequiredLevel: null,
 });
 
+const { accountCharacters } = storeToRefs(accountStore);
+
+const isActive = ref(false);
+
 const itemsQuery = () => {
   getItems(
     Object.fromEntries(
@@ -258,6 +278,11 @@ getItemInventoryTypes().catch((error) => console.error(error));
 getItemMaterials().catch((error) => console.error(error));
 getItemQualities().catch((error) => console.error(error));
 //getItemStatTypes().catch((error) => console.error(error));
+
+const addItem = (itemId) => {
+  // Add item
+  console.log("item id", itemId);
+};
 
 const itemHeaders = [
   {
@@ -306,6 +331,11 @@ const itemHeaders = [
     value: "entry",
     align: "center",
     sortable: true,
+  },
+  {
+    title: "",
+    value: "actions",
+    align: "center",
   },
 ];
 
