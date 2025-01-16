@@ -4,6 +4,8 @@
  * Framework documentation: https://vuetifyjs.com`
  */
 
+import { VNumberInput } from "vuetify/labs/VNumberInput";
+
 // Styles
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
@@ -30,5 +32,8 @@ export default createVuetify({
         },
       },
     },
+  },
+  components: {
+    VNumberInput,
   },
 });

@@ -162,37 +162,55 @@
               <item-tooltip :itemId="item.entry"></item-tooltip>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-dialog max-width="640">
-                <template v-slot:activator="{ props: activatorProps }">
-                  <v-btn v-bind="activatorProps" icon size="x-small"
-                    ><v-icon>mdi-plus</v-icon></v-btn
-                  >
-                </template>
-                <template v-slot:default="{ isActive }">
-                  <v-card>
-                    <v-card-title>{{ item.name }}</v-card-title>
-                    <v-card-text>{{ accountCharacters }}</v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-
-                      <v-btn
-                        text="Close Dialog"
-                        @click="isActive.value = false"
-                      ></v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </template>
-              </v-dialog>
+              <v-btn icon size="x-small" @click="editItem(item)"
+                ><v-icon>mdi-plus</v-icon></v-btn
+              >
             </template>
           </v-data-table>
         </v-card-text>
       </v-card>
     </v-responsive>
+    <v-dialog max-width="480" v-model="isActive">
+      <v-card>
+        <v-card-title>{{ editedItem.name }}</v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col>
+              <v-select
+                v-model="editedItem.characterId"
+                density="compact"
+                label="Character"
+                :items="accountCharacters"
+                itemTitle="name"
+                itemValue="guid"
+                clearable
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-number-input
+                v-model="editedItem.units"
+                density="compact"
+                label="Units"
+                clearable
+              >
+              </v-number-input>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text="Apply" @click="applyItem()"> </v-btn>
+          <v-btn text="Close" @click="isActive = false"></v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useItemStore } from "@/store/items";
 import { useAccountStore } from "@/store/accounts";
@@ -242,9 +260,27 @@ const params = ref({
   maxRequiredLevel: null,
 });
 
-const { accountCharacters } = storeToRefs(accountStore);
+const editedItem = ref({
+  name: null,
+  characterId: null,
+  itemId: null,
+  units: 1,
+});
 
 const isActive = ref(false);
+
+watch(isActive, (newValue, oldValue) => {
+  if (newValue === false) {
+    editedItem.value = {
+      name: null,
+      characterId: null,
+      itemId: null,
+      units: 1,
+    };
+  }
+});
+
+const { accountCharacters } = storeToRefs(accountStore);
 
 const itemsQuery = () => {
   getItems(
@@ -279,9 +315,24 @@ getItemMaterials().catch((error) => console.error(error));
 getItemQualities().catch((error) => console.error(error));
 //getItemStatTypes().catch((error) => console.error(error));
 
-const addItem = (itemId) => {
-  // Add item
-  // TODO
+const applyItem = () => {
+  const { characterId, itemId, units } = { ...editedItem.value };
+  if (!characterId || !itemId || !units) {
+    console.err("Need params");
+    return;
+  }
+  const command = `.additem ${characterId} ${itemId} ${units}`;
+  console.log("applyItem", command);
+};
+
+const editItem = (item) => {
+  editedItem.value = {
+    name: item.name,
+    characterId: null,
+    itemId: item.entry,
+    units: 1,
+  };
+  isActive.value = true;
 };
 
 const itemHeaders = [
