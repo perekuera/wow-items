@@ -12,7 +12,6 @@ const getUserName = (req) => {
 
 router.get("/telnet", async (_req, res) => {
   const result = await sendTelnetCommand(".server info");
-  console.log("RESULT", result);
   res.json({ ok });
 });
 

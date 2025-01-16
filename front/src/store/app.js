@@ -39,8 +39,6 @@ export const useAppStore = defineStore("app", {
       this.currentLocale = locale;
     },
     renewToken(newToken) {
-      console.log("renewToken", newToken);
-      console.log("current token was ", this.token);
       this.token = newToken;
     },
     async auth(userName, password) {

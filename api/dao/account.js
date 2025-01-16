@@ -77,7 +77,6 @@ const TOKEN_DURATION = 60 * 360; // 360 minutes
 const TOKEN_RENEW = 60 * 30; // 30 minutes
 
 const createToken = (userName) => {
-  console.log("createToken", userName);
   return jwt.sign({ userName }, TOKEN_KEY, {
     expiresIn: `${TOKEN_DURATION}s`,
   });
@@ -85,7 +84,6 @@ const createToken = (userName) => {
 
 const parseToken = (token) => {
   try {
-    console.log("parseToken", token);
     token = token.replace("Bearer ", "");
     return jwt.verify(token, TOKEN_KEY);
   } catch (error) {
@@ -105,13 +103,11 @@ const checkToken = (req, res, next) => {
   }
 
   try {
-    console.log("checkToken", token);
     const decoded = parseToken(token);
     const exp = decoded.exp;
     const now = parseInt(Date.now() / 1000);
     const diff = exp - now;
     if (diff < TOKEN_RENEW) {
-      console.log("renew token");
       res.header("Access-Control-Expose-Headers", "Renew-Authorization");
       res.header("Renew-Authorization", createToken(decoded.userName));
     }

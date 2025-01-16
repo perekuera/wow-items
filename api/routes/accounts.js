@@ -20,7 +20,6 @@ router.post(
   "/auth",
   express.urlencoded({ extended: true }),
   async (req, res, next) => {
-    console.log("auth!");
     try {
       const { userName, password } = req.body;
       const accountInfo = await authAccount(userName, password);
