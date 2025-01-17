@@ -201,7 +201,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text="Apply" @click="applyItem()"> </v-btn>
+          <v-btn text="Apply" @click="doApplyItem()"> </v-btn>
           <v-btn text="Close" @click="isActive = false"></v-btn>
         </v-card-actions>
       </v-card>
@@ -245,6 +245,7 @@ const {
   getItemMaterials,
   getItemQualities,
   //getItemStatTypes,
+  applyItem,
 } = itemStore;
 
 const params = ref({
@@ -315,14 +316,22 @@ getItemMaterials().catch((error) => console.error(error));
 getItemQualities().catch((error) => console.error(error));
 //getItemStatTypes().catch((error) => console.error(error));
 
-const applyItem = () => {
+const doApplyItem = () => {
   const { characterId, itemId, units } = { ...editedItem.value };
   if (!characterId || !itemId || !units) {
     console.err("Need params");
     return;
   }
   const command = `.additem ${characterId} ${itemId} ${units}`;
-  console.log("applyItem", command);
+  console.log("doApplyItem", command);
+  applyItem(command)
+    .then((data) => {
+      console.log("apply!", data);
+      isActive.value = false;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 const editItem = (item) => {

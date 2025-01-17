@@ -94,6 +94,24 @@ export const useItemStore = defineStore("itemStore", () => {
     return getWhatEver("items/item-stat-types", itemStatTypes);
   };
 
+  const applyItem = async (command) => {
+    try {
+      const res = await fetch(
+        `${baseUrl}/commands/soap?command=${command}`,
+        getRequestInit()
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data);
+      }
+      return Promise.resolve(data);
+    } catch (error) {
+      return Promise.reject(error);
+    } finally {
+      //
+    }
+  };
+
   return {
     //states
     itemLoading,
@@ -120,5 +138,6 @@ export const useItemStore = defineStore("itemStore", () => {
     getItemMaterials,
     getItemQualities,
     getItemStatTypes,
+    applyItem,
   };
 });
