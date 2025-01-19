@@ -113,7 +113,7 @@
           <v-btn
             prepend-icon="mdi-magnify"
             :disabled="itemLoading"
-            @click="itemsQuery"
+            @click="itemsQuery('button')"
             >Search</v-btn
           >
           <v-btn
@@ -283,7 +283,8 @@ watch(isActive, (newValue, oldValue) => {
 
 const { accountCharacters } = storeToRefs(accountStore);
 
-const itemsQuery = () => {
+const itemsQuery = (from) => {
+  console.log("itemsQuery!", from);
   getItems(
     Object.fromEntries(
       Object.entries({ ...params.value }).filter(([_key, value]) =>
@@ -399,9 +400,9 @@ const itemHeaders = [
   },
 ];
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    itemsQuery();
-  }
-});
+// window.addEventListener("keydown", (e) => {
+//   if (e.key === "Enter") {
+//     itemsQuery("enter");
+//   }
+// });
 </script>
