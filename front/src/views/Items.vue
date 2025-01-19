@@ -400,9 +400,9 @@ const itemHeaders = [
   },
 ];
 
-// window.addEventListener("keydown", (e) => {
-//   if (e.key === "Enter") {
-//     itemsQuery("enter");
-//   }
-// });
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    itemsQuery("enter");
+  }
+});
 </script>
