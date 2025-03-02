@@ -1,42 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Warrior"
+    "name": "Warrior",
+    "bitmask": 1
   },
   {
     "id": 2,
-    "name": "Paladin"
+    "name": "Paladin",
+    "bitmask": 2
   },
   {
     "id": 3,
-    "name": "Hunter"
+    "name": "Hunter",
+    "bitmask": 4
   },
   {
     "id": 4,
-    "name": "Rogue"
+    "name": "Rogue",
+    "bitmask": 8
   },
   {
     "id": 5,
-    "name": "Priest"
+    "name": "Priest",
+    "bitmask": 16
   },
   {
     "id": 6,
-    "name": "Deathknight"
+    "name": "Deathknight",
+    "bitmask": 32
   },
   {
     "id": 7,
-    "name": "Shaman"
+    "name": "Shaman",
+    "bitmask": 64
   },
   {
     "id": 8,
-    "name": "Mage"
+    "name": "Mage",
+    "bitmask": 128
   },
   {
     "id": 9,
-    "name": "Warlock"
+    "name": "Warlock",
+    "bitmask": 256
   },
   {
     "id": 11,
-    "name": "Druid"
+    "name": "Druid",
+    "bitmask": 1024
   }
 ]

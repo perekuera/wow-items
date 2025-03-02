@@ -1,42 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Human"
+    "name": "Human",
+    "bitmask": 1
   },
   {
     "id": 2,
-    "name": "Dwarf"
+    "name": "Dwarf",
+    "bitmask": 2
   },
   {
     "id": 3,
-    "name": "Night Elf"
+    "name": "Night Elf",
+    "bitmask": 4
   },
   {
     "id": 4,
-    "name": "Undead"
+    "name": "Undead",
+    "bitmask": 8
   },
   {
     "id": 5,
-    "name": "Tauren"
+    "name": "Tauren",
+    "bitmask": 16
   },
   {
     "id": 6,
-    "name": "Gnome"
+    "name": "Gnome",
+    "bitmask": 32
   },
   {
     "id": 7,
-    "name": "Troll"
+    "name": "Troll",
+    "bitmask": 64
   },
   {
     "id": 8,
-    "name": "Blood Elf"
+    "name": "Blood Elf",
+    "bitmask": 128
   },
   {
     "id": 10,
-    "name": "Draenei"
+    "name": "Draenei",
+    "bitmask": 256
   },
   {
     "id": 12,
-    "name": "Orc"
+    "name": "Orc",
+    "bitmask": 1024
   }
 ]
