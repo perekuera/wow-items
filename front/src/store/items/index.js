@@ -63,6 +63,10 @@ export const useItemStore = defineStore("itemStore", () => {
     if (params.qualities) {
       params.qualities = params.qualities.join(",");
     }
+    if (params.itemStatTypes) {
+      params.itemStatTypes = params.itemStatTypes.join(",");
+    }
+    console.log('params', params);  
     return getWhatEver("items", items, params);
   };
 

@@ -107,6 +107,23 @@
               </v-row>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="4">
+              <v-select
+                v-model="params.itemStatTypes"
+                density="compact"
+                label="Stat type"
+                :items="itemStatTypes"
+                itemTitle="statType"
+                itemValue="id"
+                clearable
+                multiple
+              ></v-select>
+            </v-col>
+            <v-col>
+              {{ params.itemStatType }}
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -228,7 +245,7 @@ const {
   itemInventoryTypes,
   itemMaterials,
   itemQualities,
-  //itemStatTypes,
+  itemStatTypes,
   itemClass,
   itemSubclass,
   itemQuality,
@@ -244,7 +261,7 @@ const {
   getItemInventoryTypes,
   getItemMaterials,
   getItemQualities,
-  //getItemStatTypes,
+  getItemStatTypes,
   applyItem,
 } = itemStore;
 
@@ -259,6 +276,7 @@ const params = ref({
   maxItemLevel: null,
   minRequiredLevel: null,
   maxRequiredLevel: null,
+  itemStatTypes: []
 });
 
 const editedItem = ref({
@@ -315,7 +333,7 @@ getItemClasses().catch((error) => console.error(error));
 getItemInventoryTypes().catch((error) => console.error(error));
 getItemMaterials().catch((error) => console.error(error));
 getItemQualities().catch((error) => console.error(error));
-//getItemStatTypes().catch((error) => console.error(error));
+getItemStatTypes().catch((error) => console.error(error));
 
 const doApplyItem = () => {
   const { characterId, itemId, units } = { ...editedItem.value };
