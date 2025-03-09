@@ -22,7 +22,7 @@ register({
 });
 
 //const baseUrl = "http://localhost:3003";
-const baseUrl = "http://192.168.1.53:3003";
+const baseUrl = process.env.VUE_APP_API_BASE_URL || "http://localhost:3003";
 
 const getRequestInit = (
   init = {

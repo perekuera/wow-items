@@ -1,7 +1,14 @@
 <template>
-  <v-tooltip left min-width="400">
+  <v-tooltip start min-width="240" max-width="360">
     <template v-slot:activator="{ props }">
-      <v-btn v-bind="props" @mouseover="fetchTooltip">{{ itemId }}</v-btn>
+      <v-btn
+        size="small"
+        prepend-icon="mdi-clipboard"
+        v-bind="props"
+        @mouseover="fetchTooltip"
+        @click="copyToClipboard"
+        >{{ itemId }}</v-btn
+      >
     </template>
     <div class="tooltip" v-html="tooltipContent"></div>
   </v-tooltip>
@@ -60,7 +67,13 @@ export default {
       }
     };
 
-    return { tooltipContent, fetchTooltip };
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(props.itemId.toString()).catch((err) => {
+        console.error("Failed to copy item ID: ", err);
+      });
+    };
+
+    return { tooltipContent, fetchTooltip, copyToClipboard };
   },
 };
 </script>

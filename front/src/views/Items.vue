@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="fill-height">
     <v-responsive class="align-center fill-height">
-      <v-card density="compact" variant="text" title="Items">
-        <v-card-text>
+      <v-card density="compact" variant="text">
+        <v-card-text class="pt-1 pb-0">
           <v-row>
-            <v-col>
+            <v-col class="pb-0">
               <v-select
                 v-model="params.itemClass"
                 density="compact"
@@ -15,7 +15,7 @@
                 clearable
               ></v-select>
             </v-col>
-            <v-col>
+            <v-col class="pb-0">
               <v-select
                 v-model="params.inventoryType"
                 density="compact"
@@ -27,7 +27,7 @@
               >
               </v-select>
             </v-col>
-            <v-col>
+            <v-col class="pb-0">
               <v-select
                 v-model="params.material"
                 density="compact"
@@ -39,7 +39,7 @@
               >
               </v-select>
             </v-col>
-            <v-col>
+            <v-col class="pb-0">
               <v-select
                 v-model="params.qualities"
                 density="compact"
@@ -51,9 +51,21 @@
                 clearable
               ></v-select>
             </v-col>
+            <v-col class="pb-0" cols="4">
+              <v-select
+                v-model="params.itemStatTypes"
+                density="compact"
+                label="Stat type"
+                :items="itemStatTypes"
+                itemTitle="statType"
+                itemValue="id"
+                clearable
+                multiple
+              ></v-select>
+            </v-col>
           </v-row>
           <v-row>
-            <v-col>
+            <v-col class="py-0">
               <v-text-field
                 v-model="params.desc"
                 density="compact"
@@ -62,7 +74,7 @@
                 clearable
               ></v-text-field>
             </v-col>
-            <v-col>
+            <v-col class="py-0">
               <v-row>
                 <v-col>
                   <v-text-field
@@ -84,7 +96,7 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col>
+            <v-col class="py-0">
               <v-row>
                 <v-col>
                   <v-text-field
@@ -107,23 +119,6 @@
               </v-row>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="4">
-              <v-select
-                v-model="params.itemStatTypes"
-                density="compact"
-                label="Stat type"
-                :items="itemStatTypes"
-                itemTitle="statType"
-                itemValue="id"
-                clearable
-                multiple
-              ></v-select>
-            </v-col>
-            <v-col>
-              {{ params.itemStatType }}
-            </v-col>
-          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -142,8 +137,8 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-      <v-card density="compact" variant="text" title="List">
-        <v-card-text>
+      <v-card density="compact" variant="text">
+        <v-card-text class="pt-1">
           <v-data-table
             density="comfortable"
             :headers="itemHeaders"
@@ -215,6 +210,23 @@
               </v-number-input>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col>
+              <v-chip label size="small" @click="addUnits(0)">0</v-chip>
+              <v-chip class="ml-2" label size="small" @click="addUnits(1)"
+                >+1</v-chip
+              >
+              <v-chip class="ml-2" label size="small" @click="addUnits(10)"
+                >+10</v-chip
+              >
+              <v-chip class="ml-2" label size="small" @click="addUnits(50)"
+                >+50</v-chip
+              >
+              <v-chip class="ml-2" label size="small" @click="addUnits(100)"
+                >+100</v-chip
+              >
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -276,7 +288,7 @@ const params = ref({
   maxItemLevel: null,
   minRequiredLevel: null,
   maxRequiredLevel: null,
-  itemStatTypes: []
+  itemStatTypes: [],
 });
 
 const editedItem = ref({
@@ -288,6 +300,8 @@ const editedItem = ref({
 
 const isActive = ref(false);
 
+const { accountCharacters } = storeToRefs(accountStore);
+
 watch(isActive, (newValue, oldValue) => {
   if (newValue === false) {
     editedItem.value = {
@@ -296,10 +310,14 @@ watch(isActive, (newValue, oldValue) => {
       itemId: null,
       units: 1,
     };
+  } else {
+    console.log("else", accountCharacters.value.length);
+    if (accountCharacters.value.length === 1) {
+      console.log("else", accountCharacters.value[0]);
+      editedItem.value.characterId = accountCharacters.value[0].guid;
+    }
   }
 });
-
-const { accountCharacters } = storeToRefs(accountStore);
 
 const itemsQuery = (from) => {
   console.log("itemsQuery!", from);
@@ -351,6 +369,14 @@ const doApplyItem = () => {
     .catch((error) => {
       console.error(error);
     });
+};
+
+const addUnits = (amount) => {
+  if (amount === 0) {
+    editedItem.value.units = 0;
+  } else {
+    editedItem.value.units += amount;
+  }
 };
 
 const editItem = (item) => {
@@ -420,7 +446,11 @@ const itemHeaders = [
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    itemsQuery("enter");
+    if (isActive.value) {
+      doApplyItem();
+    } else {
+      itemsQuery("enter");
+    }
   }
 });
 </script>
