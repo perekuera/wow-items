@@ -22,7 +22,8 @@ register({
 });
 
 //const baseUrl = "http://localhost:3003";
-const baseUrl = process.env.VUE_APP_API_BASE_URL || "http://localhost:3003";
+console.log("ENV", import.meta.env.VITE_API_BASE_URL);
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3003";
 
 const getRequestInit = (
   init = {
