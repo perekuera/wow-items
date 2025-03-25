@@ -205,6 +205,7 @@
                 v-model="editedItem.units"
                 density="compact"
                 label="Units"
+                autofocus
                 clearable
               >
               </v-number-input>
