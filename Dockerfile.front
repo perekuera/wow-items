@@ -1,4 +1,4 @@
-FROM node-vue-builder-20 as build-stage
+FROM node-vue-builder-20 AS build-stage
 
 WORKDIR /app
 
