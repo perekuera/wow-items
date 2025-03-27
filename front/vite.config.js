@@ -25,9 +25,6 @@ export default defineConfig({
             styles: "wght@100;300;400;500;700;900",
           },
         ],
-        // Deshabilitar el preloading si es necesario
-        preload: false, // Evita generar <link rel="preload">
-        //display: "swap", // Mejora la carga de fuentes
       },
     }),
   ],
