@@ -1,0 +1,37 @@
+# Ignorar archivos de entorno locales
+**/.env.local
+**/.env.development
+**/.env.dist
+
+# Ignorar node_modules (si no usas un volumen para esto)
+**/node_modules
+
+# Ignorar archivos de configuración específicos del entorno local
+**/.vscode
+**/.idea
+**/.DS_Store
+**/Thumbs.db
+
+# Ignorar archivos de logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/logs
+
+# Ignorar archivos de control de versiones
+**/.git
+**/.gitignore
+
+# Ignorar archivos de pruebas (si no son necesarios en producción)
+**/tests
+**/__tests__
+**/*.test.js
+**/*.spec.js
+
+# Ignorar archivos de documentación
+**/README.md
+**/*.md
+
+# Ignorar archivos temporales del sistema operativo
+**/.DS_Store
+**/Thumbs.db
