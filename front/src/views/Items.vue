@@ -70,7 +70,6 @@
                 v-model="params.desc"
                 density="compact"
                 label="Name"
-                autofocus
                 clearable
               ></v-text-field>
             </v-col>
@@ -202,6 +201,7 @@
           <v-row>
             <v-col>
               <v-number-input
+                ref="unitsInput"
                 v-model="editedItem.units"
                 density="compact"
                 label="Units"
@@ -240,7 +240,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, nextTick } from "vue";
 import { storeToRefs } from "pinia";
 import { useItemStore } from "@/store/items";
 import { useAccountStore } from "@/store/accounts";
@@ -303,20 +303,28 @@ const isActive = ref(false);
 
 const { accountCharacters } = storeToRefs(accountStore);
 
+const unitsInput = ref(null);
+
 watch(isActive, (newValue, oldValue) => {
   if (newValue === false) {
+    console.log("actualizo");
     editedItem.value = {
+      ...editedItem.value,
       name: null,
-      characterId: null,
+      //characterId: null,
       itemId: null,
-      units: 1,
+      //units: 1,
     };
   } else {
-    console.log("else", accountCharacters.value.length);
     if (accountCharacters.value.length === 1) {
-      console.log("else", accountCharacters.value[0]);
       editedItem.value.characterId = accountCharacters.value[0].guid;
     }
+    nextTick(() => {
+      if (unitsInput.value) {
+        unitsInput.value.focus();
+        unitsInput.value.select();
+      }
+    });
   }
 });
 
@@ -357,7 +365,7 @@ getItemStatTypes().catch((error) => console.error(error));
 const doApplyItem = () => {
   const { characterId, itemId, units } = { ...editedItem.value };
   if (!characterId || !itemId || !units) {
-    console.err("Need params");
+    console.error("Need params");
     return;
   }
   const command = `.additem ${characterId} ${itemId} ${units}`;
@@ -382,10 +390,11 @@ const addUnits = (amount) => {
 
 const editItem = (item) => {
   editedItem.value = {
+    ...editedItem.value,
     name: item.name,
     characterId: null,
     itemId: item.entry,
-    units: 1,
+    //units: 1,
   };
   isActive.value = true;
 };
