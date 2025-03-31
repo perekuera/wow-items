@@ -67,6 +67,7 @@
           <v-row>
             <v-col class="py-0">
               <v-text-field
+                ref="descInput"
                 v-model="params.desc"
                 density="compact"
                 label="Name"
@@ -305,6 +306,7 @@ const isActive = ref(false);
 const { accountCharacters } = storeToRefs(accountStore);
 
 const unitsInput = ref(null);
+const descInput = ref(null);
 
 watch(isActive, (newValue, oldValue) => {
   if (newValue === false) {
@@ -315,6 +317,12 @@ watch(isActive, (newValue, oldValue) => {
       itemId: null,
       //units: 1,
     };
+    nextTick(() => {
+      if (descInput.value) {
+        descInput.value.focus();
+        descInput.value.select();
+      }
+    });
   } else {
     if (accountCharacters.value.length === 1) {
       editedItem.value.characterId = accountCharacters.value[0].guid;
@@ -329,6 +337,7 @@ watch(isActive, (newValue, oldValue) => {
 });
 
 const itemsQuery = () => {
+  editedItem.value.units = 1;
   getItems(
     Object.fromEntries(
       Object.entries({ ...params.value }).filter(([_key, value]) =>
