@@ -73,7 +73,6 @@ function calculateVerifier(username, password, salt) {
 }
 
 const TOKEN_KEY = process.env.API_TOKEN_KEY;
-console.log("TOKEN_KEY", TOKEN_KEY);
 const TOKEN_DURATION = 60 * 360; // 360 minutes
 const TOKEN_RENEW = 60 * 30; // 30 minutes
 

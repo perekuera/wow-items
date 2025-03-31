@@ -70,6 +70,7 @@
                 v-model="params.desc"
                 density="compact"
                 label="Name"
+                autofocus
                 clearable
               ></v-text-field>
             </v-col>
@@ -124,7 +125,7 @@
           <v-btn
             prepend-icon="mdi-magnify"
             :disabled="itemLoading"
-            @click="itemsQuery('button')"
+            @click="itemsQuery()"
             >Search</v-btn
           >
           <v-btn
@@ -307,7 +308,6 @@ const unitsInput = ref(null);
 
 watch(isActive, (newValue, oldValue) => {
   if (newValue === false) {
-    console.log("actualizo");
     editedItem.value = {
       ...editedItem.value,
       name: null,
@@ -328,8 +328,7 @@ watch(isActive, (newValue, oldValue) => {
   }
 });
 
-const itemsQuery = (from) => {
-  console.log("itemsQuery!", from);
+const itemsQuery = () => {
   getItems(
     Object.fromEntries(
       Object.entries({ ...params.value }).filter(([_key, value]) =>
@@ -369,10 +368,8 @@ const doApplyItem = () => {
     return;
   }
   const command = `.additem ${characterId} ${itemId} ${units}`;
-  console.log("doApplyItem", command);
   applyItem(command)
     .then((data) => {
-      console.log("apply!", data);
       isActive.value = false;
     })
     .catch((error) => {
@@ -459,7 +456,7 @@ window.addEventListener("keydown", (e) => {
     if (isActive.value) {
       doApplyItem();
     } else {
-      itemsQuery("enter");
+      itemsQuery();
     }
   }
 });

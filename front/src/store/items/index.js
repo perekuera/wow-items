@@ -66,7 +66,6 @@ export const useItemStore = defineStore("itemStore", () => {
     if (params.itemStatTypes) {
       params.itemStatTypes = params.itemStatTypes.join(",");
     }
-    console.log('params', params);  
     return getWhatEver("items", items, params);
   };
 

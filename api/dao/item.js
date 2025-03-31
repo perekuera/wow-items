@@ -67,19 +67,17 @@ const getItems = async (params = {}) => {
 
     const itemStatTypes = params.itemStatTypes.split(",");
     itemStatTypes.forEach((itemStatType, index) => {
-      itemStatConditions.push(`${itemStatType} in (stat_type1, stat_type2, stat_type3, stat_type4, stat_type5, stat_type6, stat_type7, stat_type8, stat_type9, stat_type10)`);
+      itemStatConditions.push(
+        `${itemStatType} in (stat_type1, stat_type2, stat_type3, stat_type4, stat_type5, stat_type6, stat_type7, stat_type8, stat_type9, stat_type10)`
+      );
     });
 
-    
     // for (let i = 1; i <= 10; i++) {
     //   itemStatConditions.push(`stat_type${i} IN (${params.itemStatTypes})`);
     // }
 
-    const combinedConditions = '(' + itemStatConditions.join(" AND ") + ')';
+    const combinedConditions = "(" + itemStatConditions.join(" AND ") + ")";
     xConditions.push(combinedConditions);
-
-
-
   }
   if (params.minItemLevel) {
     xConditions.push(`ItemLevel >= ?`);
@@ -103,7 +101,6 @@ const getItems = async (params = {}) => {
       ([key, _value]) => key && CHECKED_QUERY.includes(key.toLowerCase())
     )
   );
-  console.log('conditions: ', xConditions);
 
   const conditions = Object.keys(params)
     .map((key) => {

@@ -22,7 +22,6 @@ router.get("/soap", async (req, res) => {
     throw new Error("Invalid user name");
   }
   try {
-    console.log("command!!!", command, userName);
     const result = await sendSoapCommand(command, userName);
     res.json(result);
   } catch (error) {
