@@ -49,6 +49,6 @@ export const useAccountStore = defineStore("accountStore", {
     },
   },
   persist: {
-    enabled: false,
+    enabled: true,
   },
 });

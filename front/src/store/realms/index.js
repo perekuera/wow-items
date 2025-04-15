@@ -50,6 +50,6 @@ export const useRealmStore = defineStore("realmStore", {
     },
   },
   persist: {
-    enabled: false,
+    enabled: true,
   },
 });
