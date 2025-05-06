@@ -21,6 +21,7 @@
                   prepend-icon="mdi-account"
                   clearable
                   autofocus
+                  tabindex="1"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -33,6 +34,7 @@
                   prepend-icon="mdi-key"
                   density="comfortable"
                   clearable
+                  tabindex="2"
                 ></v-text-field>
               </v-col>
             </v-row>
